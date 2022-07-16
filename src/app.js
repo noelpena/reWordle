@@ -343,6 +343,7 @@ const App = (function(wordCtrl, UICtrl){
     }
 
     wordCtrl.getWord(word, wordData => {
+      console.log(wordData)
       let success = wordData.hasOwnProperty('word');
         if(!success){
           UICtrl.showAlert('danger', 'Not in word list. Please try again');

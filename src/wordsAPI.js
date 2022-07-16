@@ -6,11 +6,12 @@ const wordsURL = 'https://wordsapiv1.p.rapidapi.com/words/';
 
 class EasyHTTP{
   async get(word){
+    console.log(word)
    const response = await fetch(`${wordsURL + word}`, {
       method: 'GET',
       headers: {
         'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com',
-        'X-RapidAPI-Key': '08e4a74230msh1c1a61ccce2b99bp196d8djsnfa6e4b520649'
+        'X-RapidAPI-Key': process.env.WORDS_API_KEY
       }
    });
    const data = await response.json();
