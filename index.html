@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>reWordle v1</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="mx-auto p-5">
+  <h1>re-Wordle</h1>
+      <p class="small">Version 1</p>
+  <div id="results">
+  </div>
+  <div class="mb-3">
+    <input type="date" id="date-input" value="" min="2021-06-19" max="">
+  </div>
+  <div id="board" class="p-2">
+    <div class="grid-row" data-letters="">
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div>
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div> 
+    </div>
+    <div class="grid-row" data-letters="">
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div>
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div> 
+    </div><div class="grid-row" data-letters="">
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div>
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div> 
+    </div><div class="grid-row" data-letters="">
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div>
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div> 
+    </div><div class="grid-row" data-letters="">
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div>
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div> 
+    </div><div class="grid-row" data-letters="">
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div>
+      <div class="letter" data-state="empty" data-letter=""></div> 
+      <div class="letter" data-state="empty" data-letter=""></div> 
+    </div>
+  </div>
+<!--   
+  <div class="container mx-auto p-5">
+    
+    <div class="row">
+      
+      <form id="form">
+        
+        <div class="mb-3">
+          <label for="word-input" class="form-label">Begin typing your word</label>
+          <input type="text" pattern="^[A-Za-z]{5}$" maxlength="5" class="form-control" id="word-input" aria-describedby="word-input" disabled>
+        </div>
+      </form>
+    </div>
+    <div id="output">
+      <ul>
+
+      </ul>
+    </div>
+  </div>    -->
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  <!-- <script src="wordsAPI.js"></script>
+  <script src="app.js"></script> -->
+  <script src="build/bundle.js"></script>
+</body>
+</html>
