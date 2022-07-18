@@ -1,3 +1,18 @@
+@import 'header.css';
+@import 'keyboard.css';
+
+@font-face {
+  font-family: 'ClearSans';
+  src: url('/assets/fonts/ClearSans.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+   url('/assets/fonts/ClearSans.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+} 
+
+@font-face {
+  font-family: 'ClearSansBold';
+  src: url('/assets/fonts/ClearSans-Bold.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+   url('/assets/fonts/ClearSans-Bold.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+} 
+
 :root{
   --green: #6aaa64;
   --darkendGreen: #538d4e;
@@ -10,7 +25,25 @@
   --black: #212121;
   --orange: #f5793a;
   --blue: #85c0f9;
-  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'ClearSansBold', 'Helvetica Neue', Arial, sans-serif;
+}
+
+body{
+  /* font-family: 'ClearSansBold', 'Helvetica Neue', Arial, sans-serif; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
+}
+
+main{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .correct{
@@ -38,7 +71,7 @@
 
 #board .grid-row {
   display:grid;
-  grid-template-columns: repeat(5, 50px);
+  grid-template-columns: repeat(5, 62px);
   grid-gap: 5px;
 }
 #board .grid-row .letter[data-state='filled']{
@@ -73,7 +106,7 @@
 #board .grid-row .letter{
   border: 2px var(--lightGray) solid;
   width:auto;
-  height:50px;
+  height:62px;
   text-transform: uppercase;
   display: inline-flex;
   justify-content: center;

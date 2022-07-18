@@ -6,7 +6,6 @@ const wordsURL = 'https://wordsapiv1.p.rapidapi.com/words/';
 
 class EasyHTTP{
   async get(word){
-    console.log(word)
    const response = await fetch(`${wordsURL + word}`, {
       method: 'GET',
       headers: {
@@ -19,7 +18,6 @@ class EasyHTTP{
   };
 
   async getSolution(date){
-    // const response = await fetch(`http://localhost:3000/pastSolutions?date=${date}`);
     const response = await fetch(`../api/db.json`);
     const data = await response.json();
     for (const w of data.pastSolutions){
