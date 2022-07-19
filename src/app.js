@@ -139,7 +139,9 @@ const UICtrl = (function(){
     filledLetter: '.letter[data-state="filled"]',
     absentLetter: '.letter[data-state="absent"]',
     presentLetter: '.letter[data-state="present"]',
-    correctLetter: '.letter[data-state="correct"]'
+    correctLetter: '.letter[data-state="correct"]',
+    keyboard: '#keyboard',
+    keyboardLetter: '#keyboard button.letter-key',
   };
   
   return {
@@ -229,6 +231,15 @@ const UICtrl = (function(){
       box.dataset.state = 'empty';
       box.dataset.letter = '';
     },
+    updateKeyboard: function(){
+      let board = wordCtrl.getBoard();
+      const lastAttempt = Array.from(board.attempts[board.currentRow-1])
+
+      lastAttempt.forEach((letter, i) => {
+        const result = board.results[board.currentRow-1][i];
+        document.querySelector(UISelectors.keyboardLetter + `[data-key="${letter}"]`).dataset.state = result;
+      });
+    },
     showLastAttempt: function(){
       let board = wordCtrl.getBoard();
 
@@ -238,7 +249,9 @@ const UICtrl = (function(){
       board.results[board.currentRow-1].forEach((result, i) => {
         letters[i].dataset.state = result;      
       });
-    }
+
+      this.updateKeyboard();
+    }   
   }
 })();
 
@@ -265,17 +278,36 @@ const App = (function(wordCtrl, UICtrl){
   const loadEventListeners = function(){
     // GET UI SELECTORS
     const UISelectors = UICtrl.getSelectors();
-
     document.querySelector(UISelectors.dateInput).addEventListener('change', dateChange);
-    
-    keydownEventListener(true);
-
+    keydownEventListener(true);        
+    document.querySelector(UISelectors.keyboard).addEventListener('click', keyboardClick);
     document.addEventListener('keyup', (e) => {
       e.type == 'keyup' && delete map[e.key.toLowerCase()]
       // console.log(map)
     });
   };
   
+  const keyboardClick = function(e){
+    e.preventDefault();
+    
+    let key = e.target.dataset.key.toLowerCase();
+
+    if(key === 'backspace'){
+      UICtrl.backspaceLetterInput();
+      wordCtrl.updateCurrentWord(e.key, true);
+      return false;
+    }  
+
+    if(key === 'enter'){
+      getWord();
+      return false;
+    }
+  
+    UICtrl.addLetterInput(key);
+    wordCtrl.updateCurrentWord(key);
+    
+  };
+
   const keydownEventListener = function(isOn){
     if(!isOn){
       document.removeEventListener('keydown', typeWord);
@@ -343,7 +375,6 @@ const App = (function(wordCtrl, UICtrl){
     }
 
     wordCtrl.getWord(word, wordData => {
-      console.log(wordData)
       let success = wordData.hasOwnProperty('word');
         if(!success){
           UICtrl.showAlert('danger', 'Not in word list. Please try again');
