@@ -138,3 +138,12 @@ main{
     border-color: var(--darkGray);
   }
 }
+
+@media (max-width:768px){
+  #results{
+    display: none;
+  }
+  #board .grid-row .letter{
+    height:58px;
+  }
+}

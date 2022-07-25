@@ -5,7 +5,7 @@ Uses [WordsAPI (by dpventures)](https://rapidapi.com/dpventures/api/wordsapi/) t
 
 ## To-do
 - [x] Added status to keyboard
-- [ ] Check answer list, seems inaccurate
+- [x] Check answer list, seems inaccurate
 - [ ] Check/fix double letter behavior
 - [ ] Add instructions
 - [ ] Add stats (localStorage?)

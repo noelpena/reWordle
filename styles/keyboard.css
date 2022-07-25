@@ -22,6 +22,7 @@
 #keyboard button.letter-key:last-of-type{
   margin: 0;
 }
+
 #keyboard button.letter-key{
   display: flex;
   justify-content: center;
@@ -39,6 +40,12 @@
   font-weight: 500;
 }
 
+#keyboard button.letter-key-spacer{
+  background-color: transparent;
+  border: none;
+}
+
+
 #keyboard button.letter-key[data-state='correct']{
   background-color: var(--darkendGreen);
   color:#fff;
@@ -52,4 +59,13 @@
 #keyboard button.letter-key[data-state='absent']{
   background-color: var(--darkestGray);
   color:#fff;
+}
+
+@media (max-width: 768px){
+  #keyboard{
+    max-width: calc(500px - 20px);
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }

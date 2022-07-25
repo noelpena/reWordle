@@ -7,13 +7,16 @@ header {
   align-items: center;
   flex-wrap: nowrap;
   padding:0px 16px;
-  height:50px;
-  border-bottom: 1px solid #333;
+  height:66px;
+  border-bottom: 1px solid #d3d6da;
 }
 
 header h1{
  font-family: var(--headingFont);
  font-weight: 900;
+ color: #000;
+ font-size: 2rem;
+ margin:0px;
 }
 
 header a{
@@ -26,5 +29,33 @@ header a:hover{
 }
 
 header a svg {
-  width: 24px;
+  width: 30px;
+}
+
+@media (min-width:768px){
+  header #header-left{
+    /* min-width: 120px;*/
+    padding-right: 70px; 
+  }
+}
+
+
+@media (max-width:768px){
+  header{
+    min-height: 40px;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  header h1{
+    font-size: 26px;
+    flex-grow: 2;
+  }
+
+  header #header-left{
+    padding-right: 13px; 
+  }
+
+  header a svg {
+    width: 24px;
+  }
 }
