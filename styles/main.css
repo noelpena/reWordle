@@ -31,7 +31,6 @@
 }
 
 body{
-  /* font-family: 'ClearSansBold', 'Helvetica Neue', Arial, sans-serif; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -46,6 +45,13 @@ main{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#results{
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 2;
 }
 
 .correct{
@@ -114,7 +120,7 @@ main{
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 28px;
+  font-size: 32px;
 
   /* animation-name: showLetter;
   animation-duration: 200ms;
@@ -139,10 +145,7 @@ main{
   }
 }
 
-@media (max-width:768px){
-  #results{
-    display: none;
-  }
+@media (max-width:768px){  
   #board .grid-row .letter{
     height:58px;
   }

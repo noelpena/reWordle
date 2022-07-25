@@ -9,7 +9,7 @@ Uses [WordsAPI (by dpventures)](https://rapidapi.com/dpventures/api/wordsapi/) t
 - [ ] Check/fix double letter behavior
 - [ ] Add instructions
 - [ ] Add stats (localStorage?)
-- [ ] Make responsive
+- [x] Make responsive-ish
 - [ ] Add dark mode 
 - [ ] Add animations 
 

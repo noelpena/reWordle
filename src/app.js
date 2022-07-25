@@ -62,7 +62,6 @@ const wordCtrl = (function(){
       let solution = board.solution.toLowerCase();
       const resultsArr = [];
 
-
       const numOfLetters = {}; // for solution
       const solArr = Array.from(solution); // solution array
       const correctLetterPositions = []
@@ -146,17 +145,21 @@ const UICtrl = (function(){
   
   return {
     showAlert: function(type, message){
+      type = "dark";
       this.clearAlert();
       const wrapper = document.createElement('div');
       wrapper.innerHTML = `
-        <div class="alert alert-${type} alert-dismissible" role="alert">
-           <div>${message}</div>
-           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="alert alert-${type} text-white bg-dark fw-bold fade show" role="alert" id="re-alert">
+           <div>${message}</div>          
         </div>`;
 
       document.querySelector(UISelectors.results).append(wrapper);
 
-      setTimeout(this.clearAlert, 3000);
+      setTimeout(() =>{
+        const alert = bootstrap.Alert.getOrCreateInstance('#re-alert');
+        alert.close();
+      }, 1800);
+      setTimeout(this.clearAlert, 2000);
     },
     clearAlert: function(){
       document.querySelector(UISelectors.results).innerHTML = '';
@@ -377,7 +380,7 @@ const App = (function(wordCtrl, UICtrl){
     wordCtrl.getWord(word, wordData => {
       let success = wordData.hasOwnProperty('word');
         if(!success){
-          UICtrl.showAlert('danger', 'Not in word list. Please try again');
+          UICtrl.showAlert('danger', 'Not in word list');
           return false;
         }
   
