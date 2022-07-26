@@ -269,20 +269,17 @@ const App = (function(wordCtrl, UICtrl){
       maxDate: `${month}-${day}-${year}`
     }); 
     document.querySelector(UISelectors.dateInput).setAttribute('data-date',`${month}-${day}-${year}`);
+    document.querySelector(UISelectors.dateInput + ' .datepicker-grid span.focused').classList.add("selected");
   }
 
   const formatDate = function(date, isYesterday = false){
     const d = new Date(date);
-    
-    // if(isYesterday){
-    //   const yesterday = new Date(d);
-    //   yesterday.setDate(yesterday.getDate() - 1)
-    // }
 
     let month = d.getMonth() + 1;
     month = month < 10 ? '0' + month : month;
     const year = d.getFullYear();
-    const day = d.getDate();
+    let day = d.getDate();
+    day = day < 10 ? '0' + day : day;
 
     return `${month}-${day}-${year}`
   };
@@ -331,9 +328,15 @@ const App = (function(wordCtrl, UICtrl){
   }
 
   const dateChange = function(e){
+    // update datepicker data attr value
     const UISelectors = UICtrl.getSelectors();
     const date = formatDate(parseInt(e.target.dataset.date));
     document.querySelector(UISelectors.dateInput).setAttribute('data-date', date);
+
+    // close modal
+    var dateModal = document.getElementById('dateModal');
+    var modal = bootstrap.Modal.getInstance(dateModal);
+    modal.hide();
 
     UICtrl.clearBoard();
     wordCtrl.resetBoard();
