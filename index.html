@@ -7,6 +7,7 @@
   <title>reWordle</title>
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/css/datepicker.min.css">
   <link rel="stylesheet" href="styles/main.css">
   <link
   rel="stylesheet"
@@ -28,16 +29,20 @@
       </a>
     </div>
     <h1>reWordle</h1>
-    <div id="header-right">
+    <div id="header-right">      
+      <a href="#dateModal" data-bs-toggle="modal" data-bs-target="#dateModal">
+        <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
+          <path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/>
+          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+        </svg>
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">
+          <path d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z"/>
+        </svg> -->
+      </a>
       <a href="#instructionsModal" data-bs-toggle="modal" data-bs-target="#instructionsModal">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
           <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
-        </svg>
-      </a>
-      <a href="##">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">
-          <path d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z"/>
         </svg>
       </a>
       <a href="##">
@@ -49,9 +54,9 @@
   </header>
   <main>
     
-    <div class="mt-2">
+    <!-- <div class="mt-2">
       <input type="date" id="date-input" value="" min="2021-06-19" max="">
-    </div>
+    </div> -->
     <div id="board" class="p-2">
       <div class="grid-row" data-letters="">
         <div class="letter" data-state="empty" data-letter=""></div> 
@@ -135,17 +140,11 @@
     </div>
   </div>
 
-  <!-- JavaScript Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-  <!-- <script src="wordsAPI.js"></script>
-  <script src="app.js"></script> -->
-  <script src="build/bundle.js"></script>
-
   <!-- Modal -->
 <div class="modal fade" id="instructionsModal" tabindex="-1" aria-labelledby="instructionsModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content position-relative">
-      <button type="button" class="btn-close position-absolute" style="right:15px;top:10px;" data-bs-dismiss="modal" aria-label="Close"></button>
+      <button type="button" class="btn-close position-absolute" style="right:15px;top:10px;z-index:5" data-bs-dismiss="modal" aria-label="Close"></button>
       <div class="modal-header border border-0 p-0 m-0">
        </div>
       <div class="modal-body pt-1">
@@ -193,8 +192,6 @@
           <div class="ex-letter letter" data-state="empty">E</div>
         </div>
         <p>The letter <strong>U</strong> is not in the word in any spot.</p>
-
-        
       </div>
       <div class="modal-footer">
       </div>
@@ -202,6 +199,25 @@
   </div>
 </div>
 
+<div class="modal fade" id="dateModal" tabindex="-1" aria-labelledby="dateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content position-relative">
+      <button type="button" class="btn-close position-absolute" style="right:15px;top:10px;z-index:5" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-header border border-0 p-0 m-0">
+       </div>
+      <div class="modal-body pt-1">
+        <h5 class="modal-title text-uppercase text-center mt-1 mb-2" id="dateModalLabel">Pick a Date</h5>
+        <div class="text-center py-2" id="inputDate" data-date=""></div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<!-- <script src="wordsAPI.js"></script>
+<script src="app.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker.min.js"></script>
+<script src="build/bundle.js"></script>
 </body>
 </html>
