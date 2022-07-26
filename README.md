@@ -6,8 +6,8 @@ Uses [WordsAPI (by dpventures)](https://rapidapi.com/dpventures/api/wordsapi/) t
 ## To-do
 - [x] Added status to keyboard
 - [x] Check answer list, seems inaccurate
-- [ ] Check/fix double letter behavior
-- [ ] Add instructions
+- [x] Check/fix double letter behavior
+- [x] Add instructions
 - [ ] Add stats (localStorage?)
 - [x] Make responsive-ish
 - [ ] Add dark mode 

@@ -54,6 +54,10 @@ const wordCtrl = (function(){
     addAttempt: function(word){
       board.attempts.push(word);
       board.currentRow++;      
+
+      if(board.currentRow === 6){
+        board.status = "game over"
+      }
     },
     addResults: function(word){
       //RESULTS NEEDS TO AFFECT THE UI as well
@@ -62,55 +66,35 @@ const wordCtrl = (function(){
       let solution = board.solution.toLowerCase();
       const resultsArr = [];
 
-      const numOfLetters = {}; // for solution
-      const solArr = Array.from(solution); // solution array
-      const correctLetterPositions = []
+      if(word === solution){board.status = "game over"}
 
-      // grab last instance of the letter unless it's correct or present...?
+      // all results as absent
       for (let i = 0; i < word.length; i++){
-          let regex = new RegExp(`${word[i]}`);
-          let test = regex.test(solution)
-          
-          if(test){
-            if(i === solution.indexOf(word[i])){
-              resultsArr.push({word: word[i], result: "correct"})
-            } else{
-              resultsArr.push({word: word[i], result: "present"})
-            }
-          } else{
-            resultsArr.push({word: word[i], result: "absent"})
-          }
-
-          // Creating object to tell me howmany letters solution has
-          // For repeat letters
-          if(numOfLetters[solArr[i]] !== undefined){
-            numOfLetters[solArr[i]] = numOfLetters[solArr[i]] + 1;
-          } else{
-            numOfLetters[solArr[i]] = 1;
-          }
+        resultsArr.push({letter: word[i], result: "absent"})
       }
 
-      
-      console.log(word[2],word[3])
-      // repeating/double letter checking
-      const wordHasRepeatLetters = hasRepeatingLetters(word);
-      // const solutionHasRepeatLetters = hasRepeatingLetters(solution);
-      const weight = ["absent", "present", "correct"];
-      console.log(numOfLetters, 'num of letters')
-      if(wordHasRepeatLetters){
-        resultsArr.forEach(function(res){
-          if(res === "present"){
+      // add correct results then remove letter from solution
+      for (let i = 0; i < word.length; i++){        
+        if(i === solution.indexOf(word[i])){
+          resultsArr[i] = {letter: word[i], result: "correct"};
+          solution = solution.replace(word[i]," ");
+        }
+      }
 
-          }
-        })
+      // add present with check for correct results then remove letter from solution
+      for (let i = 0; i < word.length; i++){        
+        let regex = new RegExp(`${word[i]}`);
+        let test = regex.test(solution)
+        // can also use solution.includes(word[i]) instead of regex
+          
+        if(resultsArr[i].result !== "correct" && test){
+          resultsArr[i] = {letter: word[i], result: "present"};
+          solution = solution.replace(word[i]," ");
+        }
       }
 
       board.results.push(resultsArr.map(item => item.result));
       wordCtrl.clearCurrentWord();
-
-      
-
-      console.log(board)
     },
     resetBoard: function(){
       board.currentWord = '';
@@ -145,6 +129,7 @@ const UICtrl = (function(){
   
   return {
     showAlert: function(type, message){
+      let {status} = wordCtrl.getBoard();
       type = "dark";
       this.clearAlert();
       const wrapper = document.createElement('div');
@@ -154,12 +139,13 @@ const UICtrl = (function(){
         </div>`;
 
       document.querySelector(UISelectors.results).append(wrapper);
-
-      setTimeout(() =>{
-        const alert = bootstrap.Alert.getOrCreateInstance('#re-alert');
-        alert.close();
-      }, 1800);
-      setTimeout(this.clearAlert, 2000);
+      if(status !== "game over"){
+        setTimeout(() =>{
+          const alert = bootstrap.Alert.getOrCreateInstance('#re-alert');
+          alert.close();
+        }, 1800);
+        setTimeout(this.clearAlert, 2000);
+      }
     },
     clearAlert: function(){
       document.querySelector(UISelectors.results).innerHTML = '';
@@ -337,7 +323,6 @@ const App = (function(wordCtrl, UICtrl){
     // NO CURRENT USE CASE BUT MAYBE IN THE FUTURE
   
     // if(map['control'] && map['b']){ // CTRL+R
-    //   console.log('YESS');s
     // }else if(map[17] && map[16] && map[66]){ // CTRL+SHIFT+B
     //   alert('Control Shift B');
     // }else if(map[17] && map[16] && map[67]){ // CTRL+SHIFT+C

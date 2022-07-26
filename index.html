@@ -29,7 +29,7 @@
     </div>
     <h1>reWordle</h1>
     <div id="header-right">
-      <a href="##">
+      <a href="#instructionsModal" data-bs-toggle="modal" data-bs-target="#instructionsModal">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
           <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
@@ -140,5 +140,62 @@
   <!-- <script src="wordsAPI.js"></script>
   <script src="app.js"></script> -->
   <script src="build/bundle.js"></script>
+
+  <!-- Modal -->
+<div class="modal fade" id="instructionsModal" tabindex="-1" aria-labelledby="instructionsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content position-relative">
+      <button type="button" class="btn-close position-absolute" style="right:15px;top:10px;" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-header d-block pb-1">
+        <h5 class="modal-title text-uppercase text-center mb-2" id="instructionsModalLabel">How to Play</h5>
+        <p>
+          Guess the <strong>WORDLE</strong> in six tries.
+        </p>
+        <p>
+          Each guess must be a valid five-letter word. Hit the enter button to submit.
+        </p>
+        <p>
+          After each guess, the color of the tiles will change to show how close your guess was to the word.
+        </p>
+      </div>
+      <div class="modal-body pt-1">
+        <p><strong>Examples</strong></p>
+        
+        <div class="ex-word ">
+          <div class="ex-letter letter" data-state="correct">W</div>
+          <div class="ex-letter letter" data-state="empty">E</div>
+          <div class="ex-letter letter" data-state="empty">A</div>
+          <div class="ex-letter letter" data-state="empty">R</div>
+          <div class="ex-letter letter" data-state="empty">Y</div>
+        </div>
+        <p>The letter <strong>W</strong> is in the word and in the correct spot.</p>
+
+        <div class="ex-word">
+          <div class="ex-letter letter" data-state="empty">P</div>
+          <div class="ex-letter letter" data-state="present">I</div>
+          <div class="ex-letter letter" data-state="empty">L</div>
+          <div class="ex-letter letter" data-state="empty">L</div>
+          <div class="ex-letter letter" data-state="empty">S</div>
+        </div>
+        <p>The letter <strong>I</strong> is in the word but in the wrong spot.</p>
+
+        <div class="ex-word">
+          <div class="ex-letter letter" data-state="empty">V</div>
+          <div class="ex-letter letter" data-state="empty">A</div>
+          <div class="ex-letter letter" data-state="empty">G</div>
+          <div class="ex-letter letter" data-state="absent">U</div>
+          <div class="ex-letter letter" data-state="empty">E</div>
+        </div>
+        <p>The letter <strong>U</strong> is not in the word in any spot.</p>
+
+        <p><a href="https://www.nytimes.com/games/wordle/index.html" target="_blank">Play the original game</a>. This game only allows you to play previous days that you might have missed.</p>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </body>
 </html>
