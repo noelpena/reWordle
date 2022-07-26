@@ -92,7 +92,7 @@ const wordCtrl = (function(){
           solution = solution.replace(word[i]," ");
         }
       }
-
+      console.log(board)
       board.results.push(resultsArr.map(item => item.result));
       wordCtrl.clearCurrentWord();
     },
@@ -112,7 +112,8 @@ const wordCtrl = (function(){
 const UICtrl = (function(){
   const UISelectors = {
     wordInput: '#word-input',
-    dateInput: '#date-input',
+    dateInput: '#inputDate',
+    dateInputData: 'data-date',
     results: '#results', 
     form: '#form',
     attemptOutput: '#output ul',
@@ -167,7 +168,10 @@ const UICtrl = (function(){
       //document.querySelector(UISelectors.wordInput).value = "";
     },
     getDateInput: function(){
-      return document.querySelector(UISelectors.dateInput).value;
+      const date = document.querySelector(UISelectors.dateInput).getAttribute(UISelectors.dateInputData);
+      const dateArr = date.split('-');
+     
+      return `${dateArr[2]}-${dateArr[0]}-${dateArr[1]}`;
     },
     clearBoard: function(){
       // need to add 
@@ -259,15 +263,32 @@ const App = (function(wordCtrl, UICtrl){
     const year = yesterday.getFullYear();
     const day = yesterday.getDate();
 
-    document.querySelector('#date-input').setAttribute('max',`${year}-${month}-${day}`);
-    document.querySelector(UISelectors.dateInput).value = `${year}-${month}-${day}`;
+    const elem = document.querySelector(UISelectors.dateInput);
+    const datepicker = new Datepicker(elem, {
+      minDate: '06-19-2021',
+      maxDate: `${month}-${day}-${year}`
+    }); 
+    document.querySelector(UISelectors.dateInput).setAttribute('data-date',`${month}-${day}-${year}`);
+    document.querySelector(UISelectors.dateInput + ' .datepicker-grid span.focused').classList.add("selected");
   }
+
+  const formatDate = function(date, isYesterday = false){
+    const d = new Date(date);
+
+    let month = d.getMonth() + 1;
+    month = month < 10 ? '0' + month : month;
+    const year = d.getFullYear();
+    let day = d.getDate();
+    day = day < 10 ? '0' + day : day;
+
+    return `${month}-${day}-${year}`
+  };
 
   const map = {}; 
   const loadEventListeners = function(){
     // GET UI SELECTORS
     const UISelectors = UICtrl.getSelectors();
-    document.querySelector(UISelectors.dateInput).addEventListener('change', dateChange);
+    document.querySelector(UISelectors.dateInput).addEventListener('click', dateChange);
     keydownEventListener(true);        
     document.querySelector(UISelectors.keyboard).addEventListener('click', keyboardClick);
     document.addEventListener('keyup', (e) => {
@@ -306,7 +327,17 @@ const App = (function(wordCtrl, UICtrl){
     document.addEventListener('keydown', typeWord);
   }
 
-  const dateChange = function(){
+  const dateChange = function(e){
+    // update datepicker data attr value
+    const UISelectors = UICtrl.getSelectors();
+    const date = formatDate(parseInt(e.target.dataset.date));
+    document.querySelector(UISelectors.dateInput).setAttribute('data-date', date);
+
+    // close modal
+    var dateModal = document.getElementById('dateModal');
+    var modal = bootstrap.Modal.getInstance(dateModal);
+    modal.hide();
+
     UICtrl.clearBoard();
     wordCtrl.resetBoard();
     keydownEventListener(true);
