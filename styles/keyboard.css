@@ -9,9 +9,7 @@
   margin: 0 auto
 }
 
-#keyboard-row-1,
-#keyboard-row-2,
-#keyboard-row-3{
+.keyboard-row{
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;

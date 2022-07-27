@@ -75,12 +75,12 @@ const wordCtrl = (function(){
 
       // add correct results then remove letter from solution
       for (let i = 0; i < word.length; i++){        
-        if(i === solution.indexOf(word[i])){
+        // if(i === solution.indexOf(word[i])){
+        if(word[i] === solution[i]){
           resultsArr[i] = {letter: word[i], result: "correct"};
           solution = solution.replace(word[i]," ");
         }
       }
-
       // add present with check for correct results then remove letter from solution
       for (let i = 0; i < word.length; i++){        
         let regex = new RegExp(`${word[i]}`);
@@ -92,7 +92,7 @@ const wordCtrl = (function(){
           solution = solution.replace(word[i]," ");
         }
       }
-      console.log(board)
+
       board.results.push(resultsArr.map(item => item.result));
       wordCtrl.clearCurrentWord();
     },
@@ -126,6 +126,7 @@ const UICtrl = (function(){
     correctLetter: '.letter[data-state="correct"]',
     keyboard: '#keyboard',
     keyboardLetter: '#keyboard button.letter-key',
+    keyboardRow: '#keyboard .keyboard-row',
   };
   
   return {
@@ -163,10 +164,6 @@ const UICtrl = (function(){
       word = word.toLowerCase();
       return word;
     },
-    clearWordInput: function(){
-      // might not need this anymore
-      //document.querySelector(UISelectors.wordInput).value = "";
-    },
     getDateInput: function(){
       const date = document.querySelector(UISelectors.dateInput).getAttribute(UISelectors.dateInputData);
       const dateArr = date.split('-');
@@ -182,6 +179,14 @@ const UICtrl = (function(){
       letters.forEach(letter => {
         letter.textContent = '';
         letter.dataset.letter = '';
+        letter.dataset.state = 'empty';
+      });
+    },
+    clearKeyboard: function(){
+      let keyLetters = document.querySelectorAll(UISelectors.keyboardLetter);
+      keyLetters = Array.from(keyLetters);
+
+      keyLetters.forEach(letter => {
         letter.dataset.state = 'empty';
       });
     },
@@ -339,6 +344,7 @@ const App = (function(wordCtrl, UICtrl){
     modal.hide();
 
     UICtrl.clearBoard();
+    UICtrl.clearKeyboard();
     wordCtrl.resetBoard();
     keydownEventListener(true);
   };
@@ -400,7 +406,6 @@ const App = (function(wordCtrl, UICtrl){
           return false;
         }
   
-        UICtrl.clearWordInput();
         wordCtrl.addAttempt(word);        
 
         let board = wordCtrl.getBoard();
