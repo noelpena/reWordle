@@ -59,6 +59,11 @@
   color:#fff;
 }
 
+#keyboard button.letter-key[data-key="backspace"],
+#keyboard button.letter-key[data-key="enter"]{
+  flex: 1.5;
+}
+
 @media (max-width: 768px){
   #keyboard{
     /* max-width: calc(500px - 20px);

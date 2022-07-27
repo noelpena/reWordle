@@ -8,8 +8,9 @@ Uses [WordsAPI (by dpventures)](https://rapidapi.com/dpventures/api/wordsapi/) t
 - [x] Check answer list, seems inaccurate
 - [x] Check/fix double letter behavior
 - [x] Add instructions
-- [ ] Add stats (localStorage?)
 - [x] Make responsive-ish
-- [ ] Add dark mode 
 - [ ] Add animations 
+- [ ] Add dark mode 
+- [ ] Move stats and settings to hamburger menu
+- [ ] Add stats (localStorage?)
 

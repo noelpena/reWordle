@@ -305,9 +305,16 @@ const App = (function(wordCtrl, UICtrl){
   
   const keyboardClick = function(e){
     e.preventDefault();
-    
-    let key = e.target.dataset.key.toLowerCase();
 
+    let key = e.target.dataset.key;
+    const isEmpty = Object.keys(e.target.dataset).length === 0;
+
+    if(isEmpty){
+      return false;
+    }
+
+    key = key.toLowerCase();
+    
     if(key === 'backspace'){
       UICtrl.backspaceLetterInput();
       wordCtrl.updateCurrentWord(e.key, true);
