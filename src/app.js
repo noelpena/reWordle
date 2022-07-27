@@ -114,6 +114,7 @@ const UICtrl = (function(){
     wordInput: '#word-input',
     dateInput: '#inputDate',
     dateInputData: 'data-date',
+    setDateBtn: "#set-date",
     results: '#results', 
     form: '#form',
     attemptOutput: '#output ul',
@@ -293,7 +294,7 @@ const App = (function(wordCtrl, UICtrl){
   const loadEventListeners = function(){
     // GET UI SELECTORS
     const UISelectors = UICtrl.getSelectors();
-    document.querySelector(UISelectors.dateInput).addEventListener('click', dateChange);
+    document.querySelector(UISelectors.setDateBtn).addEventListener('click', dateChange);
     keydownEventListener(true);        
     document.querySelector(UISelectors.keyboard).addEventListener('click', keyboardClick);
     document.addEventListener('keyup', (e) => {
@@ -345,6 +346,7 @@ const App = (function(wordCtrl, UICtrl){
 
     UICtrl.clearBoard();
     UICtrl.clearKeyboard();
+    UICtrl.clearAlert();
     wordCtrl.resetBoard();
     keydownEventListener(true);
   };
