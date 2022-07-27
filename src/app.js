@@ -115,6 +115,7 @@ const UICtrl = (function(){
     dateInput: '#inputDate',
     dateInputData: 'data-date',
     setDateBtn: "#set-date",
+    selectedDate: "#inputDate .datepicker-grid .datepicker-cell.selected",
     results: '#results', 
     form: '#form',
     attemptOutput: '#output ul',
@@ -278,18 +279,6 @@ const App = (function(wordCtrl, UICtrl){
     document.querySelector(UISelectors.dateInput + ' .datepicker-grid span.focused').classList.add("selected");
   }
 
-  const formatDate = function(date, isYesterday = false){
-    const d = new Date(date);
-
-    let month = d.getMonth() + 1;
-    month = month < 10 ? '0' + month : month;
-    const year = d.getFullYear();
-    let day = d.getDate();
-    day = day < 10 ? '0' + day : day;
-
-    return `${month}-${day}-${year}`
-  };
-
   const map = {}; 
   const loadEventListeners = function(){
     // GET UI SELECTORS
@@ -339,11 +328,28 @@ const App = (function(wordCtrl, UICtrl){
 
     document.addEventListener('keydown', typeWord);
   }
+  
+  const formatDate = function(date, isYesterday = false){
+    const d = new Date(date);
+    
+    console.log(date)
+    console.log(d)
+
+    let month = d.getMonth() + 1;
+    month = month < 10 ? '0' + month : month;
+    const year = d.getFullYear();
+    let day = d.getDate();
+    day = day < 10 ? '0' + day : day;
+
+    return `${month}-${day}-${year}`
+  };
 
   const dateChange = function(e){
     // update datepicker data attr value
     const UISelectors = UICtrl.getSelectors();
-    const date = formatDate(parseInt(e.target.dataset.date));
+    const selectedDate = document.querySelector(UISelectors.selectedDate).getAttribute('data-date');
+    const date = formatDate(parseInt(selectedDate));
+    
     document.querySelector(UISelectors.dateInput).setAttribute('data-date', date);
 
     // close modal
@@ -385,10 +391,12 @@ const App = (function(wordCtrl, UICtrl){
       //if(!result && (e.code === 8 || e.key === 'Backspace' || e.keyCode === 8)){
       UICtrl.backspaceLetterInput();
       wordCtrl.updateCurrentWord(e.key, true);
+      return false;
     }  
 
     if(e.code === 13 || e.key === 'Enter' || e.keyCode === 13){
       getWord();
+      return false;
     }  
     
     let result = regex.test(code);
@@ -435,7 +443,8 @@ const App = (function(wordCtrl, UICtrl){
             UICtrl.showAlert('success', 'Word Matches!');
             keydownEventListener(false);
           } else{
-            UICtrl.showAlert('warning', 'Word doesn\'t match');
+            //UICtrl.showAlert('warning', 'Word doesn\'t match');
+            // add animation here
           }
         });
     });

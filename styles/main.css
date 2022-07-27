@@ -146,10 +146,7 @@ main{
   }
 }
 
-@media (max-width:768px){  
-  body{
-    justify-content: flex-start;
-  }
+@media (max-width:768px){    
   #board .grid-row .letter{
     height:58px;
   }
