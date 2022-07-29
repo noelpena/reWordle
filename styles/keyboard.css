@@ -79,7 +79,16 @@
   .keyboard-row{
     margin-bottom: 4px;
   }
+  
   #keyboard button.letter-key{
     margin: 0 3px 0 0;
+  }
+
+  #keyboard button.letter-key[data-key="backspace"]{
+    flex: 1.5;
+  }
+  #keyboard button.letter-key[data-key="enter"]{
+    flex: 1.2;
+    font-size: .8rem;
   }
 }
