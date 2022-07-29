@@ -14,7 +14,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   width: 100%;
-  margin: 0 auto 8px;
+  margin-bottom: 8px;
 }
 
 #keyboard button.letter-key:last-of-type{
@@ -68,5 +68,12 @@
   #keyboard{
     padding-left: 10px;
     padding-right: 10px;
+  }
+  
+  .keyboard-row{
+    margin-bottom: 4px;
+  }
+  #keyboard button.letter-key{
+    margin: 0 3px 0 0;
   }
 }

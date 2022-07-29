@@ -34,7 +34,7 @@
 body{
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   height: 100vh;
   margin: 0;
   padding: 0;
@@ -46,6 +46,7 @@ main{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-grow:1
 }
 
 #results{
@@ -146,12 +147,12 @@ main{
   }
 }
 
-/* @media (max-width:768px){    
+@media (max-width:768px){    
   #board .grid-row .letter{
-    height:54px;
+    height:58px;
   }
   #board .grid-row {
     display: grid;
-    grid-template-columns: repeat(5, 54px);
+    grid-template-columns: repeat(5, 58px);
   }
-} */
+}
