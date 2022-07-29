@@ -36,6 +36,7 @@
   color: #000;
   cursor: pointer;
   font-weight: 500;
+  flex: 1;
 }
 
 #keyboard button.letter-key-spacer{

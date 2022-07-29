@@ -28,7 +28,7 @@
   --black: #212121;
   --orange: #f5793a;
   --blue: #85c0f9;
-  font-family: 'ClearSansBold', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'ClearSansBold', 'Helvetica Neue', Arial, sans-serif;  
 }
 
 body{
@@ -37,6 +37,7 @@ body{
   /* justify-content: space-between; */
   max-height: 100vh;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   margin: 0;
   padding: 0;
 }
