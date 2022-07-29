@@ -332,9 +332,6 @@ const App = (function(wordCtrl, UICtrl){
   const formatDate = function(date, isYesterday = false){
     const d = new Date(date);
     
-    console.log(date)
-    console.log(d)
-
     let month = d.getMonth() + 1;
     month = month < 10 ? '0' + month : month;
     const year = d.getFullYear();

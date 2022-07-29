@@ -146,8 +146,12 @@ main{
   }
 }
 
-@media (max-width:768px){    
+/* @media (max-width:768px){    
   #board .grid-row .letter{
-    height:58px;
+    height:54px;
   }
-}
+  #board .grid-row {
+    display: grid;
+    grid-template-columns: repeat(5, 54px);
+  }
+} */

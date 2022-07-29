@@ -1,11 +1,11 @@
 #keyboard{
-  /* font-family: 'ClearSansBold', 'Helvetica Neue', Arial, sans-serif;   */
   font-weight:bold;
   display:flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 500px;
+  max-width: calc(500px - 20px);
+  width: 100%;
   margin: 0 auto
 }
 
@@ -66,11 +66,7 @@
 
 @media (max-width: 768px){
   #keyboard{
-    /* max-width: calc(500px - 20px);
-    width: 100%; */
     padding-left: 10px;
     padding-right: 10px;
-    width: 100%;
-    margin: unset;
   }
 }
