@@ -68,6 +68,11 @@
   #keyboard{
     padding-left: 10px;
     padding-right: 10px;
+    justify-content: unset;
+    align-items: unset;
+    max-width: unset;
+    width: unset;
+    margin: unset;
   }
   
   .keyboard-row{
