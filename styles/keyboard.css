@@ -69,9 +69,10 @@
   #keyboard{
     padding-left: 10px;
     padding-right: 10px;
+    max-width: 100%;
+    max-width: calc(var(--vw, 100%));
     justify-content: unset;
     align-items: unset;
-    max-width: unset;
     width: unset;
     margin: unset;
   }
