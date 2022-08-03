@@ -16,7 +16,7 @@ Uses:
 - [ ] Add dark mode 
 - [ ] Move stats and settings to hamburger menu
 - [ ] Add stats (localStorage?)
+- [ ] Add Github link
 
 ## Known issues:
 - Keyboard looks funky on iPhone, maybe other devices too. needs testing
-- 
