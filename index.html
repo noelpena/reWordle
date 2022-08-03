@@ -34,7 +34,7 @@
         </svg>
       </a>
     </div>
-    <h1 class="animate__animated animate__flip">reWordle</h1>
+    <h1 class="">reWordle</h1>
     <div id="header-right">      
       <a href="#dateModal" data-bs-toggle="modal" data-bs-target="#dateModal">
         <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
@@ -172,8 +172,8 @@
         <hr>
         <p><strong>Examples</strong></p>
         
-        <div class="ex-word ">
-          <div class="ex-letter letter" data-state="correct">W</div>
+        <div class="ex-word">
+          <div class="ex-letter letter" data-animate="true" data-state="correct">W</div>
           <div class="ex-letter letter" data-state="empty">E</div>
           <div class="ex-letter letter" data-state="empty">A</div>
           <div class="ex-letter letter" data-state="empty">R</div>
@@ -183,7 +183,7 @@
 
         <div class="ex-word">
           <div class="ex-letter letter" data-state="empty">P</div>
-          <div class="ex-letter letter" data-state="present">I</div>
+          <div class="ex-letter letter" data-animate="true" data-state="present">I</div>
           <div class="ex-letter letter" data-state="empty">L</div>
           <div class="ex-letter letter" data-state="empty">L</div>
           <div class="ex-letter letter" data-state="empty">S</div>
@@ -194,7 +194,7 @@
           <div class="ex-letter letter" data-state="empty">V</div>
           <div class="ex-letter letter" data-state="empty">A</div>
           <div class="ex-letter letter" data-state="empty">G</div>
-          <div class="ex-letter letter" data-state="absent">U</div>
+          <div class="ex-letter letter" data-animate="true" data-state="absent">U</div>
           <div class="ex-letter letter" data-state="empty">E</div>
         </div>
         <p>The letter <strong>U</strong> is not in the word in any spot.</p>
@@ -224,10 +224,16 @@
 
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-<!-- <script src="wordsAPI.js"></script>
-<script src="app.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker.min.js"></script>
 <script src="build/bundle.js"></script>
-
+<script>
+  const instructionsModal = document.getElementById('instructionsModal')
+  instructionsModal.addEventListener('shown.bs.modal', event => {
+    Array.from(document.querySelectorAll('.ex-word .letter[data-animate="true"]')).map(l => l.classList.add('animate__animated', 'animate__flip', 'animate__faster'))
+  })
+  instructionsModal.addEventListener('hidden.bs.modal', event => {
+    Array.from(document.querySelectorAll('.ex-word .letter[data-animate="true"]')).map(l => l.classList.remove('animate__animated', 'animate__flip', 'animate__faster'))
+  })
+</script>
 </body>
 </html>

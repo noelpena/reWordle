@@ -240,41 +240,27 @@ const UICtrl = (function(){
         document.querySelector(UISelectors.keyboardLetter + `[data-key="${letter}"]`).dataset.state = result;
       });
     },
-    showLastAttempt: function(){
+    showLastAttempt: function(callback){
       let board = wordCtrl.getBoard();
       let letters = document.querySelectorAll(UISelectors.gridRow + `:nth-child(${board.currentRow}) .letter`);
       letters = Array.from(letters);
 
-      setTimeout(() => {
-        letters[0].dataset.state = board.results[board.currentRow-1][0];
-        letters[0].classList.add('animate__animated', 'animate__flip', 'animate__fast');
-      }, 0)
+      let i = 0
+      letters[i].classList.add('animate__animated', 'animate__flip', 'animate__faster');
+      letters[i].dataset.state = board.results[board.currentRow-1][i];      
+      i++;
+
+      setInterval(() => {
+        letters[i].classList.add('animate__animated', 'animate__flip', 'animate__faster');
+        letters[i].dataset.state = board.results[board.currentRow-1][i];
+        i++
+        if(i+1 === 5){clearInterval()}
+      }, 500);
 
       setTimeout(() => {
-        letters[1].dataset.state = board.results[board.currentRow-1][1];
-        letters[1].classList.add('animate__animated', 'animate__flip', 'animate__fast');
-      }, 600)
-
-      setTimeout(() => {
-        letters[2].dataset.state = board.results[board.currentRow-1][2];
-        letters[2].classList.add('animate__animated', 'animate__flip', 'animate__fast');
-      }, 1200)
-
-      setTimeout(() => {
-        letters[3].dataset.state = board.results[board.currentRow-1][3];
-        letters[3].classList.add('animate__animated', 'animate__flip', 'animate__fast');
-      }, 1800)
-
-      setTimeout(() => {
-        letters[4].dataset.state = board.results[board.currentRow-1][4];
-        letters[4].classList.add('animate__animated', 'animate__flip', 'animate__fast'); 
-      }, 2400)
-
-      // board.results[board.currentRow-1].forEach((result, i) => {
-      //   letters[i].dataset.state = result;      
-      // });
-
-      this.updateKeyboard();
+        this.updateKeyboard();
+        callback();
+      },2800);
     }   
   }
 })();
@@ -451,7 +437,10 @@ const App = (function(wordCtrl, UICtrl){
         // success does the word match?
         wordCtrl.getSolution(date, solution => {
           wordCtrl.addResults(word);
-          UICtrl.showLastAttempt(word);
+          keydownEventListener(false);
+          UICtrl.showLastAttempt(() => {
+            keydownEventListener(true);  
+          });
           const correctWord = solution.word.toLowerCase();
           if(board.currentRow === board.attemptLimit && word !== correctWord){
             // GAME IS OVER            

@@ -18,70 +18,10 @@
   }
 
   50%  {
-    transform: rotateX(180deg);
+    transform: rotateX(90deg);
   }
 
   100%  {
     transform: rotateX(0deg);
   }
 }
-/* 
-@keyframes flip {
-  0% {
-    -webkit-transform: perspective(400px) scaleX(1) translateZ(0px) rotateX(2turn);
-    -webkit-animation-timing-function: ease;
-    transform: perspective(400px) scaleX(1) translateZ(0px) rotateX(0deg);
-    animation-timing-function: ease
-  }
-
-  50% {
-    -webkit-transform: perspective(400px) scaleX(1) translateZ(0px) rotateX(2turn);
-    -webkit-animation-timing-function: ease;
-    transform: perspective(400px) scaleX(1) translateZ(0px) rotateX(180deg);
-    animation-timing-function: ease
-  }
-
-  to {
-    -webkit-transform:  perspective(400px) scaleX(1) translateZ(0px) rotateX(0deg);
-    -webkit-animation-timing-function: ease;
-    transform: perspective(400px) scaleX(1) translateZ(0px) rotateX(0deg);
-    animation-timing-function: ease
-  }
-} */
-
-/* @-webkit-keyframes flip {
-  0% {
-    -webkit-transform: perspective(400px) scaleX(1) translateZ(0) rotateY(-1turn);
-    -webkit-animation-timing-function: ease-out;
-    transform: perspective(400px) scaleX(1) translateZ(0px) rotateX(-1turn);
-    animation-timing-function: ease-out
-  }
-
-  40% {
-    -webkit-transform: perspective(400px) scaleX(1) translateZ(0px) rotateY(-190deg);
-    -webkit-animation-timing-function: ease-out;
-    transform: perspective(400px) scaleX(1) translateZ(0px) rotateX(-190deg);
-    animation-timing-function: ease-out
-  }
-
-  50% {
-    -webkit-transform: perspective(400px) scaleX(1) translateZ(150px) rotateY(-170deg);
-    -webkit-animation-timing-function: ease-in;
-    transform: perspective(400px) scaleX(1) translateZ(0px) rotateX(-170deg);
-    animation-timing-function: ease-in
-  }
-
-  80% {
-    -webkit-transform: perspective(400px) scale3d(.95,.95,.95) translateZ(0) rotateY(0deg);
-    -webkit-animation-timing-function: ease-in;
-    transform: perspective(400px) scaleX(1) translateZ(0) rotateX(0deg);
-    animation-timing-function: ease-in
-  }
-
-  to {
-    -webkit-transform: perspective(400px) scaleX(1) translateZ(0) rotateY(0deg);
-    -webkit-animation-timing-function: ease-in;
-    transform: perspective(400px) scaleX(1) translateZ(0) rotateX(0deg);
-    animation-timing-function: ease-in
-  }
-} */
