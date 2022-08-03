@@ -2,6 +2,7 @@
 @import 'keyboard.css';
 @import 'modal.css';
 @import 'flip.css';
+@import 'bounce.css';
 
 @font-face {
   font-family: 'ClearSans';

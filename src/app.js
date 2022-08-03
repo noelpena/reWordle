@@ -250,17 +250,45 @@ const UICtrl = (function(){
       letters[i].dataset.state = board.results[board.currentRow-1][i];      
       i++;
 
-      setInterval(() => {
+      const flipAnimation = setInterval(() => {
+        if (i === 4) {
+          window.clearInterval(flipAnimation);
+        }
         letters[i].classList.add('animate__animated', 'animate__flip', 'animate__faster');
         letters[i].dataset.state = board.results[board.currentRow-1][i];
-        i++
-        if(i+1 === 5){clearInterval()}
-      }, 500);
+        i++;
+      }, 500);      
 
       setTimeout(() => {
         this.updateKeyboard();
-        callback();
-      },2800);
+        if(board.attempts[board.currentRow-1] === board.solution){
+          this.correctWordAnimate(board)
+        } else{          
+          callback();
+        }
+      },2800);      
+    },
+    correctWordAnimate: function(board){
+      let letters = document.querySelectorAll(UISelectors.gridRow + `:nth-child(${board.currentRow}) .letter`);
+      letters = Array.from(letters);
+
+      board.results[board.currentRow-1].forEach((result, i) => {
+        letters[i].classList.remove('animate__animated', 'animate__flip', 'animate__faster');
+      });
+
+      let i = 0
+      letters[i].classList.add('animate__animated','animate__bounce','animate__faster');
+      letters[i].dataset.state = board.results[board.currentRow-1][i];      
+      i++;
+
+      const bounceAnimation = setInterval(() => {
+         if (i === 4) {
+           window.clearInterval(bounceAnimation);
+         }
+         letters[i].classList.add('animate__animated','animate__bounce','animate__faster');
+         letters[i].dataset.state = board.results[board.currentRow-1][i];
+         i++;
+       }, 150);
     }   
   }
 })();
