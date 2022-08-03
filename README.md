@@ -12,7 +12,7 @@ Uses:
 - [x] Check/fix double letter behavior
 - [x] Add instructions
 - [x] Make responsive-ish
-- [ ] Add animations 
+- [x] Add animations 
 - [ ] Add dark mode 
 - [ ] Move stats and settings to hamburger menu
 - [ ] Add stats (localStorage?)
