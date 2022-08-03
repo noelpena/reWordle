@@ -1,5 +1,5 @@
 # reWordle
-Play previous days of Wordle
+Play previous days of Wordle. 
 
 Uses:
 - [WordsAPI (by dpventures)](https://rapidapi.com/dpventures/api/wordsapi/) to check if word exists
@@ -17,3 +17,6 @@ Uses:
 - [ ] Move stats and settings to hamburger menu
 - [ ] Add stats (localStorage?)
 
+## Known issues:
+- Keyboard looks funky on iPhone, maybe other devices too. needs testing
+- 

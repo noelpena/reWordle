@@ -242,13 +242,37 @@ const UICtrl = (function(){
     },
     showLastAttempt: function(){
       let board = wordCtrl.getBoard();
-
       let letters = document.querySelectorAll(UISelectors.gridRow + `:nth-child(${board.currentRow}) .letter`);
       letters = Array.from(letters);
 
-      board.results[board.currentRow-1].forEach((result, i) => {
-        letters[i].dataset.state = result;      
-      });
+      setTimeout(() => {
+        letters[0].dataset.state = board.results[board.currentRow-1][0];
+        letters[0].classList.add('animate__animated', 'animate__flip', 'animate__fast');
+      }, 0)
+
+      setTimeout(() => {
+        letters[1].dataset.state = board.results[board.currentRow-1][1];
+        letters[1].classList.add('animate__animated', 'animate__flip', 'animate__fast');
+      }, 600)
+
+      setTimeout(() => {
+        letters[2].dataset.state = board.results[board.currentRow-1][2];
+        letters[2].classList.add('animate__animated', 'animate__flip', 'animate__fast');
+      }, 1200)
+
+      setTimeout(() => {
+        letters[3].dataset.state = board.results[board.currentRow-1][3];
+        letters[3].classList.add('animate__animated', 'animate__flip', 'animate__fast');
+      }, 1800)
+
+      setTimeout(() => {
+        letters[4].dataset.state = board.results[board.currentRow-1][4];
+        letters[4].classList.add('animate__animated', 'animate__flip', 'animate__fast'); 
+      }, 2400)
+
+      // board.results[board.currentRow-1].forEach((result, i) => {
+      //   letters[i].dataset.state = result;      
+      // });
 
       this.updateKeyboard();
     }   
@@ -268,7 +292,8 @@ const App = (function(wordCtrl, UICtrl){
     let month = yesterday.getMonth() + 1;
     month = month < 10 ? '0' + month : month;
     const year = yesterday.getFullYear();
-    const day = yesterday.getDate();
+    let day = yesterday.getDate();
+    day = day < 10 ? '0' + day : day;
 
     const elem = document.querySelector(UISelectors.dateInput);
     const datepicker = new Datepicker(elem, {
@@ -397,7 +422,6 @@ const App = (function(wordCtrl, UICtrl){
     }  
     
     let result = regex.test(code);
-
     if(result){// TYPE LETTER IN INPUT      
       UICtrl.addLetterInput(e.key);
       wordCtrl.updateCurrentWord(e.key);

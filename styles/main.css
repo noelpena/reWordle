@@ -1,6 +1,7 @@
 @import 'header.css';
 @import 'keyboard.css';
 @import 'modal.css';
+@import 'flip.css';
 
 @font-face {
   font-family: 'ClearSans';
