@@ -2,6 +2,7 @@ import { http } from './wordsAPI';
 
 // WORD CONTROLLER
 const wordCtrl = (function(){
+  const localStorageKeyName = "rewordle-solution";
   const board = {
     currentWord: '',
     solution: '',
@@ -29,12 +30,22 @@ const wordCtrl = (function(){
       .catch(err => console.log(err));
     },
     getSolution: function(date, callback){
-      http.getSolution(date)
-      .then(data => {
-        board.solution = data.word.toLowerCase();
-        callback(data);
-      })
-      .catch(err => console.log(err));
+      const solutionExists = localStorage.getItem(localStorageKeyName); 
+
+      if(solutionExists){
+        callback(JSON.parse(solutionExists));
+      } else {
+        http.getSolution(date)
+        .then(data => {
+          board.solution = data.word.toLowerCase();
+          localStorage.setItem(localStorageKeyName, JSON.stringify(data));
+          callback(data);
+        })
+        .catch(err => console.log(err));
+      }
+    },
+    clearStoredSolution: function(){      
+      localStorage.removeItem(localStorageKeyName);
     },
     updateCurrentWord: function(letter, toRemove = false){
       if(board.currentWord.length >= 5 && !toRemove){
@@ -318,6 +329,10 @@ const App = (function(wordCtrl, UICtrl){
     document.querySelector(UISelectors.dateInput + ' .datepicker-grid span.focused').classList.add("selected");
   }
 
+  const removeStoredSolution = function(){
+    wordCtrl.clearStoredSolution();
+  }
+
   const map = {}; 
   const loadEventListeners = function(){
     // GET UI SELECTORS
@@ -397,6 +412,7 @@ const App = (function(wordCtrl, UICtrl){
     UICtrl.clearKeyboard();
     UICtrl.clearAlert();
     wordCtrl.resetBoard();
+    wordCtrl.clearStoredSolution();
     keydownEventListener(true);
   };
   
@@ -492,6 +508,7 @@ const App = (function(wordCtrl, UICtrl){
     init: function(){
       console.log("Initializing App...");
 
+      removeStoredSolution();
       loadEventListeners();
       todaysDateInput();
     }
