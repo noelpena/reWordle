@@ -2,19 +2,16 @@
  * EASY HTTP Library
  */
 
-const wordsURL = 'https://wordsapiv1.p.rapidapi.com/words/';
+// import Bank from "../api/bank.json";
+// const wordsURL = 'https://wordsapiv1.p.rapidapi.com/words/';
 
 class EasyHTTP{
   async get(word){
-   const response = await fetch(`${wordsURL + word}`, {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com',
-        'X-RapidAPI-Key': process.env.WORDS_API_KEY
-      }
-   });
-   const data = await response.json();
-   return data;
+    const response = await fetch(`../api/bank.json`);
+    const data = await response.json();
+    for (const w of data){
+      if(w === word){return {word: w}}
+    }
   };
 
   async getSolution(date){
