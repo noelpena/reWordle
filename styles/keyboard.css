@@ -28,12 +28,11 @@
   flex: 1;
   height: 58px;
   margin: 0 6px 0 0;
-  /* background-color: #818384; dark mode */
-  background-color: var(--lightGray); 
+  background-color: var(--keyBgColor); 
   border:none;
   border-radius: 4px;
   text-transform: uppercase;  
-  color: #000;
+  color: var(--textColor);
   cursor: pointer;
   font-weight: 500;
   flex: 1;

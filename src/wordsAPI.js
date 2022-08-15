@@ -15,7 +15,7 @@ class EasyHTTP{
   };
 
   async getSolution(date){
-    const response = await fetch(`../api/db.json`);
+    const response = await fetch(`../api/solutions.json`);
     const data = await response.json();
     for (const w of data.pastSolutions){
       if(w.date === date){return w}

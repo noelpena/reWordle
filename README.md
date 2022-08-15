@@ -15,7 +15,8 @@ Uses:
 - [x] Make responsive-ish
 - [x] Add animations 
 - [x] Use word bank instead of WordsAPI
-- [ ] Add dark mode 
+- [x] Add dark mode 
+- [ ] Update datepicker CSS to include darkmode 
 - [ ] Move stats and settings to hamburger menu
 - [ ] Add stats (localStorage?)
 - [ ] Add Github link

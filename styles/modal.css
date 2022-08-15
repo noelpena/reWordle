@@ -1,6 +1,21 @@
 #instructionsModal{
-  border-radius: 8px;;
+  border-radius: 8px;
 }
+#instructionsModal a{
+  color: var(--linkColor);
+  font-weight:bold;
+}
+
+/* #dateModal .modal-content, */
+#instructionsModal .modal-content{
+  color:var(--textColor);
+  background-color: var(--bgColor);
+}
+
+/* .datepicker-picker > *{
+  background-color: var(--bgColor) !important;
+
+} */
 
 .ex-word{
   display: flex;
@@ -19,7 +34,7 @@
   height: 40px;
   font-size: 28px;
   font-weight: 700;
-  border: 1px solid #000;
+  border: 1px solid var(--exBorderColor);
   margin-right: 4px;
 }
 

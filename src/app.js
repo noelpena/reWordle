@@ -344,7 +344,25 @@ const App = (function(wordCtrl, UICtrl){
       e.type == 'keyup' && delete map[e.key.toLowerCase()]
       // console.log(map)
     });
+
+    document.getElementById('dark-mode').addEventListener('click', toggleDarkMode);
   };
+
+  const toggleDarkMode = function(e){
+    e.preventDefault();
+
+    const body = document.querySelector('body');
+    const bodyClass = body.className;
+    if(bodyClass.includes('dark')){
+      body.classList.remove('dark');
+      document.querySelector('#instructionsModal .modal-content .btn-close').classList.remove('btn-close-white');
+      document.querySelector('#dateModal .modal-content .btn-close').classList.remove('btn-close-white');
+    } else{
+      body.classList.add('dark');
+      document.querySelector('#instructionsModal .modal-content .btn-close').classList.add('btn-close-white');
+      document.querySelector('#dateModal .modal-content .btn-close').classList.add('btn-close-white');
+    }
+  }
   
   const keyboardClick = function(e){
     e.preventDefault();
