@@ -140,6 +140,8 @@ const UICtrl = (function(){
     keyboard: '#keyboard',
     keyboardLetter: '#keyboard button.letter-key',
     keyboardRow: '#keyboard .keyboard-row',
+    sidebar: '#sidebar-menu',
+    sidebarFill: '#sidebar-fill'
   };
   
   return {
@@ -346,10 +348,37 @@ const App = (function(wordCtrl, UICtrl){
     });
 
     document.getElementById('dark-mode').addEventListener('click', toggleDarkMode);
+    document.getElementById('hamburger-menu').addEventListener('click', toggleSidebar);
+    document.getElementById('sidebar-fill').addEventListener('click', toggleSidebar);
   };
 
-  const toggleDarkMode = function(e){
+  const toggleSidebar = function(e){
     e.preventDefault();
+
+    const UISelectors = UICtrl.getSelectors();    
+    const sidebar = document.querySelector(UISelectors.sidebar);
+    const sidebarFill = document.querySelector(UISelectors.sidebarFill);
+    const sidebarClasses = sidebar.classList.value;
+    
+    if(sidebarClasses.includes('open')){
+      sidebar.classList.remove('open');
+      sidebar.classList.add('close');
+      sidebarFill.classList.remove('open');
+      setTimeout( () => {
+        sidebar.style.display = 'none';    
+        sidebarFill.style.display = 'none';    
+      },300);
+    } else{
+      sidebar.classList.add('open');
+      sidebar.classList.remove('close');
+      sidebarFill.classList.add('open');
+      sidebar.style.display = 'block';
+      sidebarFill.style.display = 'block';
+    }    
+  }
+
+  const toggleDarkMode = function(e){
+    //e.preventDefault();
 
     const body = document.querySelector('body');
     const bodyClass = body.className;

@@ -11,7 +11,7 @@ header {
   align-items: center;
   flex-wrap: nowrap;
   padding:0px 16px;
-  height:66px;
+  height:var(--headerHeight);
   border-bottom: 1px solid #d3d6da;
 }
 
