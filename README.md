@@ -18,10 +18,11 @@ Uses:
 - [x] Use word bank instead of WordsAPI
 - [x] Add dark mode 
 - [x] Move stats and settings to hamburger menu
+- [x] Add Github link
 - [ ] Add stats (localStorage?)
 - [ ] Add board to localStorage
-- [x] Add Github link
 - [ ] Persist darkmode, localstorage?
+- [ ] Keep track of dates already played within stats?
 - [ ] Update datepicker CSS to include darkmode 
 
 ## Known issues:
