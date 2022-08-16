@@ -1,8 +1,9 @@
 import { http } from './wordsAPI';
 
 // WORD CONTROLLER
-const wordCtrl = (function(){
+const wordCtrl = (function(){  
   const localStorageKeyName = "rewordle-solution";
+  const localStorageStatsName = "rewordle-statistics";
   const board = {
     currentWord: '',
     solution: '',
@@ -11,6 +12,24 @@ const wordCtrl = (function(){
     results: [],
     currentRow: 0,
     attemptLimit: 6
+  };
+
+  const stats = {
+    avgGuesses: 0,
+    currentStreak: 0,
+    gamesPlayed: 0,
+    gamesWon: 0,
+    guesses: {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      fail: 0
+    },
+    maxStreak: 0,
+    winPercentage: 0
   };
 
   const hasRepeatingLetters = function(word){
@@ -70,9 +89,7 @@ const wordCtrl = (function(){
         board.status = "game over"
       }
     },
-    addResults: function(word){
-      //RESULTS NEEDS TO AFFECT THE UI as well
-      
+    addResults: function(word){      
       word = word.toLowerCase();
       let solution = board.solution.toLowerCase();
       const resultsArr = [];
@@ -106,6 +123,7 @@ const wordCtrl = (function(){
 
       board.results.push(resultsArr.map(item => item.result));
       wordCtrl.clearCurrentWord();
+      console.log(board)
     },
     resetBoard: function(){
       board.currentWord = '';
@@ -115,6 +133,15 @@ const wordCtrl = (function(){
       board.results = [];
       board.currentRow = 0,
       board.attemptLimit = 6
+    },
+    getStats: function(){      
+      const storedStats = localStorage.getItem(localStorageStatsName);
+      
+      if(storedStats === null){
+        localStorage.setItem(localStorageStatsName, stats);
+      } else{
+
+      }
     }
   }
 })();
@@ -160,12 +187,23 @@ const UICtrl = (function(){
         setTimeout(() =>{
           const alert = bootstrap.Alert.getOrCreateInstance('#re-alert');
           alert.close();
+          document.querySelector(UISelectors.results).classList.add('fadeOut');
         }, 1800);
         setTimeout(this.clearAlert, 2000);
-      }
+      } 
+
+      if(status === "game over"){
+        setTimeout(() =>{
+          const alert = bootstrap.Alert.getOrCreateInstance('#re-alert');
+          alert.close();
+          document.querySelector(UISelectors.results).classList.add('fadeOut');
+        }, 5800);
+        setTimeout(this.clearAlert, 6000);
+      } 
     },
     clearAlert: function(){
       document.querySelector(UISelectors.results).innerHTML = '';
+      document.querySelector(UISelectors.results).classList.remove('fadeOut');
     },
     getSelectors: function(){
       return UISelectors;
@@ -187,7 +225,7 @@ const UICtrl = (function(){
     },
     clearBoard: function(){
       // need to add 
-      //some animation to flip/spinn all tiles
+      //some animation to flip/spin all tiles
       let letters = document.querySelectorAll(UISelectors.gridRow + ' .letter');
       letters = Array.from(letters);
 
@@ -302,7 +340,13 @@ const UICtrl = (function(){
          letters[i].dataset.state = board.results[board.currentRow-1][i];
          i++;
        }, 150);
-    }   
+    },
+    showStatsModal: function (){
+      setTimeout( () => {
+        var statsModal = new bootstrap.Modal(document.getElementById('statsModal'));
+        statsModal.show();
+      }, 5000);
+    }
   }
 })();
 
@@ -335,21 +379,24 @@ const App = (function(wordCtrl, UICtrl){
     wordCtrl.clearStoredSolution();
   }
 
-  const map = {}; 
   const loadEventListeners = function(){
     // GET UI SELECTORS
     const UISelectors = UICtrl.getSelectors();
     document.querySelector(UISelectors.setDateBtn).addEventListener('click', dateChange);
     keydownEventListener(true);        
     document.querySelector(UISelectors.keyboard).addEventListener('click', keyboardClick);
-    document.addEventListener('keyup', (e) => {
-      e.type == 'keyup' && delete map[e.key.toLowerCase()]
-      // console.log(map)
-    });
 
     document.getElementById('dark-mode').addEventListener('click', toggleDarkMode);
     document.getElementById('hamburger-menu').addEventListener('click', toggleSidebar);
     document.getElementById('sidebar-fill').addEventListener('click', toggleSidebar);
+
+    const statsModal = document.getElementById('statsModal');
+    statsModal.addEventListener('shown.bs.modal', (e) => {
+      const sidebarClasses = document.querySelector(UISelectors.sidebar).classList.value;
+      if(sidebarClasses.includes('open')){
+        toggleSidebar(e);
+      }
+    });
   };
 
   const toggleSidebar = function(e){
@@ -469,18 +516,6 @@ const App = (function(wordCtrl, UICtrl){
     let code = e.code.toLowerCase();
     let regex = /key/gi;
 
-    map[e.key.toLowerCase()] = e.type == 'keydown'; 
-    // CAN CHECK FOR MULTIPLE KEYBOARD PRESS AT A TIME
-    // NO CURRENT USE CASE BUT MAYBE IN THE FUTURE
-  
-    // if(map['control'] && map['b']){ // CTRL+R
-    // }else if(map[17] && map[16] && map[66]){ // CTRL+SHIFT+B
-    //   alert('Control Shift B');
-    // }else if(map[17] && map[16] && map[67]){ // CTRL+SHIFT+C
-    //   alert('Control Shift C');
-    // }
-    //  console.log(map)
-
     // IF F5, Refresh the page duhh
     if(e.code === 'F5' || e.key === 'F5' || e.keyCode === 116){
       window.location.reload();
@@ -534,15 +569,16 @@ const App = (function(wordCtrl, UICtrl){
           });
           const correctWord = solution.word.toLowerCase();
           if(board.currentRow === board.attemptLimit && word !== correctWord){
-            // GAME IS OVER            
+            // GAME IS OVER    
             keydownEventListener(false);
-            UICtrl.showAlert('info', correctWord);
+            UICtrl.showAlert('info', correctWord);            
             return false;
           }
 
           if(correctWord === word){
             UICtrl.showAlert('success', 'Word Matches!');
             keydownEventListener(false);
+            UICtrl.showStatsModal();
           } else{
             //UICtrl.showAlert('warning', 'Word doesn\'t match');
             // add animation here

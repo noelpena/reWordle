@@ -200,3 +200,8 @@ main{
     grid-template-columns: repeat(5, 58px);
   }
 }
+
+.fadeOut{
+  animation: fadeOut;
+  animation-duration: 200ms;
+}

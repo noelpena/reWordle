@@ -9,8 +9,9 @@ class EasyHTTP{
   async get(word){
     const response = await fetch(`../api/bank.json`);
     const data = await response.json();
-    for (const w of data){
-      if(w === word){return {word: w}}
+    for (const [i, w] of data.entries()){
+      if(w === word){return {"word": w}}
+      if(i+1 === data.length){return {}}
     }
   };
 

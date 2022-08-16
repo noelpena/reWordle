@@ -19,6 +19,7 @@ Uses:
 - [x] Add dark mode 
 - [x] Move stats and settings to hamburger menu
 - [ ] Add stats (localStorage?)
+- [ ] Add board to localStorage
 - [x] Add Github link
 - [ ] Persist darkmode, localstorage?
 - [ ] Update datepicker CSS to include darkmode 
