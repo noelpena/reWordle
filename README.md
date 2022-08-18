@@ -9,6 +9,11 @@ Uses:
 - Built with Vanilla JS and bundled with Webpack (JS only)
 
 ## To-do:
+- [ ] Show user dates already played somehow?
+- [ ] Add board to localStorage. Is this needed?
+- [ ] Update datepicker CSS to include darkmode 
+
+## Done
 - [x] Added status to keyboard
 - [x] Check answer list, seems inaccurate
 - [x] Check/fix double letter behavior
@@ -19,11 +24,9 @@ Uses:
 - [x] Add dark mode 
 - [x] Move stats and settings to hamburger menu
 - [x] Add Github link
-- [ ] Add stats (localStorage?)
-- [ ] Add board to localStorage
-- [ ] Persist darkmode, localstorage?
-- [ ] Keep track of dates already played within stats?
-- [ ] Update datepicker CSS to include darkmode 
+- [x] Add stats (localStorage?)
+- [x] Persist darkmode, localstorage?
+- [x] Keep track of dates already played within stats?
 
 ## Known issues:
 - Keyboard looks funky on iPhone, maybe other devices too. needs testing
