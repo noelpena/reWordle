@@ -6,7 +6,7 @@ Uses:
 - [Bootstrap](https://getbootstrap.com/) for icons, styling and modal functionality
 - [Animate.style](https://animate.style) for help with animations
 - Dark mode [toggle switch](https://codepen.io/personable/pen/NWLZrV)
-- Built with Vanilla JS and bundled (JS only) with Webpack
+- Built with Vanilla JS and bundled with Webpack (JS only)
 
 ## To-do:
 - [x] Added status to keyboard

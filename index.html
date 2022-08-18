@@ -231,8 +231,52 @@
         </div>
         <div class="modal-body pt-1">
           <h5 class="modal-title text-uppercase text-center mt-1 mb-2 fs-3" id="instructionsModalLabel">Statistics</h5>
-         
-        
+          <div class="main-stats">
+            <div class="games-played">
+              <span class="fs-1"></span>
+              <small>played</small>
+            </div>
+            <div class="win-percentage">
+              <span class="fs-1"></span>
+              <small>Win %</small>
+            </div>
+            <div class="current-streak">
+              <span class="fs-1"></span>
+              <small>Current<br>Streak</small>
+            </div>
+            <div class="max-streak">
+              <span class="fs-1"></span>
+              <small>Max<Br>Streak</small>
+            </div>
+          </div>
+
+          <h5 class="text-uppercase text-center mt-1 mb-2">Guess Distribution</h5>
+          <div class="guess-table mx-auto">
+            <div id="attempt-1" data-attempt="1" class="d-flex align-items-center">
+              <p class="p-0 m-0">1</p>
+              <p class="bar-fill d-flex align-items-center" data-num-attempts="0"></p>
+            </div>
+            <div id="attempt-2" data-attempt="2" class="d-flex align-items-center">
+              <p class="p-0 m-0">2</p>
+              <p class="bar-fill d-flex align-items-center" data-num-attempts="0"></p>
+            </div>
+            <div id="attempt-3" data-attempt="3" class="d-flex align-items-center">
+              <p class="p-0 m-0">3</p>
+              <p class="bar-fill d-flex align-items-center" data-num-attempts="0"></p>
+            </div>
+            <div id="attempt-4" data-attempt="4" class="d-flex align-items-center">
+              <p class="p-0 m-0">4</p>
+              <p class="bar-fill d-flex align-items-center" data-num-attempts="0"></p>
+            </div>
+            <div id="attempt-5" data-attempt="5" class="d-flex align-items-center">
+              <p class="p-0 m-0">5</p>
+              <p class="bar-fill d-flex align-items-center" data-num-attempts="0"></p>
+            </div>
+            <div id="attempt-6" data-attempt="6" class="d-flex align-items-center">
+              <p class="p-0 m-0">6</p>
+              <p class="bar-fill d-flex align-items-center" data-num-attempts="0"></p>
+            </div>
+          </div>
           
         </div>     
       </div>
@@ -259,8 +303,11 @@
             Statistics
           </a>
           <a href="#statsModal" data-bs-toggle="modal" data-bs-target="#statsModal">          
-          <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
+          <!-- <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"/>
+          </svg> -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
+            <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z"/>
           </svg>
           </a>
         </li>

@@ -1,7 +1,7 @@
 #sidebar-menu{
   display: none;
   position:absolute;
-  height:calc(100vh - var(--headerHeight));
+  height: calc((var(--vh, 1vh) * 100) - var(--headerHeight));
   width:375px;
   background-color:var(--bgColor);
   margin-top: var(--headerHeight);

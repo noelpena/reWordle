@@ -1,9 +1,11 @@
 import { http } from './wordsAPI';
 
+const localStorageKeyName = "rewordle-solution";
+const localStorageStatsName = "rewordle-statistics";
+const localStorageDarkMode = "rewordle-darkmode";
+
 // WORD CONTROLLER
-const wordCtrl = (function(){  
-  const localStorageKeyName = "rewordle-solution";
-  const localStorageStatsName = "rewordle-statistics";
+const wordCtrl = (function(){
   const board = {
     currentWord: '',
     solution: '',
@@ -29,7 +31,9 @@ const wordCtrl = (function(){
       fail: 0
     },
     maxStreak: 0,
-    winPercentage: 0
+    winPercentage: 0,
+    wonLastGame: false,
+    datesPlayed: []
   };
 
   const hasRepeatingLetters = function(word){
@@ -123,7 +127,16 @@ const wordCtrl = (function(){
 
       board.results.push(resultsArr.map(item => item.result));
       wordCtrl.clearCurrentWord();
-      console.log(board)
+      
+      // console.log(board)
+
+      // update stats here
+      if(word === solution){
+        this.updateStats(true);
+      } else {
+        this.updateStats(false);
+      }
+
     },
     resetBoard: function(){
       board.currentWord = '';
@@ -138,10 +151,79 @@ const wordCtrl = (function(){
       const storedStats = localStorage.getItem(localStorageStatsName);
       
       if(storedStats === null){
-        localStorage.setItem(localStorageStatsName, stats);
-      } else{
+        localStorage.setItem(localStorageStatsName, JSON.stringify(stats));
+        return stats;
+      } else{    
+        const _storedStats = JSON.parse(storedStats);
+        stats.currentStreak = _storedStats.currentStreak;
+        stats.gamesPlayed = _storedStats.gamesPlayed;
+        stats.gamesWon = _storedStats.gamesWon;
+        stats.guesses = _storedStats.guesses;
+        stats.maxStreak = _storedStats.maxStreak;
+        stats.winPercentage = _storedStats.winPercentage;
+        stats.wonLastGame = _storedStats.wonLastGame;
+        stats.datesPlayed = _storedStats.datesPlayed;
 
+        return _storedStats;
       }
+    },
+    updateStats: function(gameWon){
+      // Updating stats to include which dates have been played
+      const date = UICtrl.getDateInput();
+      const dateUpdated = false;
+      stats.datesPlayed.forEach((datePlayed) => {
+        if(datePlayed.date === date){
+          datePlayed.isWinner = gameWon;
+          datePlayed.attempts = board.attempts.length;
+          datePlayed.board = board;
+          dateUpdated = true;
+        }
+      });
+
+      if(!dateUpdated){
+        stats.datesPlayed.push({
+          date: date,
+          isWinner: gameWon,
+          attempts: board.attempts.length,
+          board: board
+        });
+      }
+
+      stats.gamesPlayed = stats.gamesPlayed + 1;
+      
+      if(gameWon){
+        stats.gamesWon = stats.gamesWon + 1;
+        stats.guesses[board.attempts.length] = stats.guesses[board.attempts.length] + 1;
+        if(stats.wonLastGame){
+          stats.currentStreak = stats.currentStreak + 1;          
+        }
+        stats.wonLastGame = true;
+
+        if(stats.currentStreak >= stats.maxStreak){
+          stats.maxStreak = stats.currentStreak;
+        }
+      } else{
+        stats.guesses['fail'] = stats.guesses['fail'] + 1;
+        if(!stats.wonLastGame){
+          stats.currentStreak = 1;
+        }
+        stats.wonLastGame = false;
+      }
+      stats.winPercentage = Math.round((stats.gamesWon / stats.gamesPlayed) * 100);     
+
+      localStorage.setItem(localStorageStatsName, JSON.stringify(stats));
+    },
+    getDarkMode: function(){
+      const storedDarkMode = JSON.parse(localStorage.getItem(localStorageDarkMode));
+      
+      if(storedDarkMode === null){
+        localStorage.setItem(localStorageDarkMode, "false");
+        return;
+      }
+
+      if(storedDarkMode){
+        UICtrl.toggleDarkMode();
+      } 
     }
   }
 })();
@@ -168,7 +250,9 @@ const UICtrl = (function(){
     keyboardLetter: '#keyboard button.letter-key',
     keyboardRow: '#keyboard .keyboard-row',
     sidebar: '#sidebar-menu',
-    sidebarFill: '#sidebar-fill'
+    sidebarFill: '#sidebar-fill',
+    darkModeCheckbox: "#e",
+    mainStatsModal: "#statsModal .main-stats"
   };
   
   return {
@@ -346,6 +430,75 @@ const UICtrl = (function(){
         var statsModal = new bootstrap.Modal(document.getElementById('statsModal'));
         statsModal.show();
       }, 5000);
+    },
+    toggleDarkMode: function(e){      
+      const body = document.querySelector('body');
+      const bodyClass = body.className;
+      if(bodyClass.includes('dark')){
+        body.classList.remove('dark');
+        document.querySelector('#instructionsModal .modal-content .btn-close').classList.remove('btn-close-white');
+        document.querySelector('#dateModal .modal-content .btn-close').classList.remove('btn-close-white');
+
+        localStorage.setItem(localStorageDarkMode, "false");
+      } else{
+        if(e === undefined){
+          document.querySelector(UISelectors.darkModeCheckbox).checked = true;
+        }
+        body.classList.add('dark');
+        document.querySelector('#instructionsModal .modal-content .btn-close').classList.add('btn-close-white');
+        document.querySelector('#dateModal .modal-content .btn-close').classList.add('btn-close-white');
+        localStorage.setItem(localStorageDarkMode, "true");
+      }
+    },
+    toggleSidebar: function(e){
+      e.preventDefault();
+  
+      const UISelectors = UICtrl.getSelectors();    
+      const sidebar = document.querySelector(UISelectors.sidebar);
+      const sidebarFill = document.querySelector(UISelectors.sidebarFill);
+      const sidebarClasses = sidebar.classList.value;
+      
+      if(sidebarClasses.includes('open')){
+        sidebar.classList.remove('open');
+        sidebar.classList.add('close');
+        sidebarFill.classList.remove('open');
+        setTimeout( () => {
+          sidebar.style.display = 'none';    
+          sidebarFill.style.display = 'none';    
+        },300);
+      } else{
+        sidebar.classList.add('open');
+        sidebar.classList.remove('close');
+        sidebarFill.classList.add('open');
+        sidebar.style.display = 'block';
+        sidebarFill.style.display = 'block';
+      }    
+    },
+    populateStats: function(){
+      const stats = wordCtrl.getStats();
+
+      const highestGuess = Math.max(...Object.values(stats.guesses));
+
+      const gamesPlayed = document.querySelectorAll(UISelectors.mainStatsModal + " .games-played span")[0];
+      gamesPlayed.textContent = stats.gamesPlayed;
+      const winPercentage = document.querySelectorAll(UISelectors.mainStatsModal + " .win-percentage span")[0];
+      winPercentage.textContent = stats.winPercentage;
+      const currentStreak = document.querySelectorAll(UISelectors.mainStatsModal + " .current-streak span")[0];
+      currentStreak.textContent = stats.currentStreak;
+      const maxStreak = document.querySelectorAll(UISelectors.mainStatsModal + " .max-streak span")[0];
+      maxStreak.textContent = stats.maxStreak;
+
+      const items = Array.from(document.querySelectorAll(".guess-table > *"));
+      items.forEach((item, i) => {
+        item.children[1].textContent = stats.guesses[i+1];
+        
+        const width = (stats.guesses[i+1] / highestGuess) * 100;
+        item.children[1].style.width = width.toString() + "%";
+        if(stats.guesses[i+1] === highestGuess && highestGuess !== 0){
+          item.children[1].style.backgroundColor = "#6aaa64";
+          item.children[1].style.width = "100%";
+        }
+      });
     }
   }
 })();
@@ -375,8 +528,11 @@ const App = (function(wordCtrl, UICtrl){
     document.querySelector(UISelectors.dateInput + ' .datepicker-grid span.focused').classList.add("selected");
   }
 
-  const removeStoredSolution = function(){
+  const updateLocalStorage = function(){
     wordCtrl.clearStoredSolution();
+    wordCtrl.getStats();
+    wordCtrl.getDarkMode();
+    UICtrl.populateStats();
   }
 
   const loadEventListeners = function(){
@@ -386,60 +542,19 @@ const App = (function(wordCtrl, UICtrl){
     keydownEventListener(true);        
     document.querySelector(UISelectors.keyboard).addEventListener('click', keyboardClick);
 
-    document.getElementById('dark-mode').addEventListener('click', toggleDarkMode);
-    document.getElementById('hamburger-menu').addEventListener('click', toggleSidebar);
-    document.getElementById('sidebar-fill').addEventListener('click', toggleSidebar);
+    document.getElementById('dark-mode').addEventListener('click', UICtrl.toggleDarkMode);
+    document.getElementById('hamburger-menu').addEventListener('click', UICtrl.toggleSidebar);
+    document.getElementById('sidebar-fill').addEventListener('click', UICtrl.toggleSidebar);
 
     const statsModal = document.getElementById('statsModal');
     statsModal.addEventListener('shown.bs.modal', (e) => {
       const sidebarClasses = document.querySelector(UISelectors.sidebar).classList.value;
       if(sidebarClasses.includes('open')){
-        toggleSidebar(e);
+        UICtrl.toggleSidebar(e);
       }
     });
   };
 
-  const toggleSidebar = function(e){
-    e.preventDefault();
-
-    const UISelectors = UICtrl.getSelectors();    
-    const sidebar = document.querySelector(UISelectors.sidebar);
-    const sidebarFill = document.querySelector(UISelectors.sidebarFill);
-    const sidebarClasses = sidebar.classList.value;
-    
-    if(sidebarClasses.includes('open')){
-      sidebar.classList.remove('open');
-      sidebar.classList.add('close');
-      sidebarFill.classList.remove('open');
-      setTimeout( () => {
-        sidebar.style.display = 'none';    
-        sidebarFill.style.display = 'none';    
-      },300);
-    } else{
-      sidebar.classList.add('open');
-      sidebar.classList.remove('close');
-      sidebarFill.classList.add('open');
-      sidebar.style.display = 'block';
-      sidebarFill.style.display = 'block';
-    }    
-  }
-
-  const toggleDarkMode = function(e){
-    //e.preventDefault();
-
-    const body = document.querySelector('body');
-    const bodyClass = body.className;
-    if(bodyClass.includes('dark')){
-      body.classList.remove('dark');
-      document.querySelector('#instructionsModal .modal-content .btn-close').classList.remove('btn-close-white');
-      document.querySelector('#dateModal .modal-content .btn-close').classList.remove('btn-close-white');
-    } else{
-      body.classList.add('dark');
-      document.querySelector('#instructionsModal .modal-content .btn-close').classList.add('btn-close-white');
-      document.querySelector('#dateModal .modal-content .btn-close').classList.add('btn-close-white');
-    }
-  }
-  
   const keyboardClick = function(e){
     e.preventDefault();
 
@@ -591,7 +706,7 @@ const App = (function(wordCtrl, UICtrl){
     init: function(){
       console.log("Initializing App...");
 
-      removeStoredSolution();
+      updateLocalStorage();
       loadEventListeners();
       todaysDateInput();
     }
