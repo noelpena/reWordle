@@ -171,12 +171,12 @@ const wordCtrl = (function(){
     updateStats: function(gameWon){
       // Updating stats to include which dates have been played
       const date = UICtrl.getDateInput();
-      const dateUpdated = false;
-      stats.datesPlayed.forEach((datePlayed) => {
-        if(datePlayed.date === date){
-          datePlayed.isWinner = gameWon;
-          datePlayed.attempts = board.attempts.length;
-          datePlayed.board = board;
+      let dateUpdated = false;
+      stats.datesPlayed.forEach((date) => {
+        if(date.date === date){
+          date.isWinner = gameWon;
+          date.attempts = board.attempts.length;
+          date.board = board;
           dateUpdated = true;
         }
       });
@@ -195,7 +195,7 @@ const wordCtrl = (function(){
       if(gameWon){
         stats.gamesWon = stats.gamesWon + 1;
         stats.guesses[board.attempts.length] = stats.guesses[board.attempts.length] + 1;
-        if(stats.wonLastGame){
+        if(stats.wonLastGame || stats.currentStreak === 0){
           stats.currentStreak = stats.currentStreak + 1;          
         }
         stats.wonLastGame = true;
@@ -206,14 +206,14 @@ const wordCtrl = (function(){
       } else{
         stats.guesses['fail'] = stats.guesses['fail'] + 1;
         if(!stats.wonLastGame){
-          stats.currentStreak = 1;
+          stats.currentStreak = 0;
         }
         stats.wonLastGame = false;
       }
       stats.winPercentage = Math.round((stats.gamesWon / stats.gamesPlayed) * 100);     
 
       localStorage.setItem(localStorageStatsName, JSON.stringify(stats));
-      UICtrl.populateStats();
+      UICtrl.populateStats(true);
     },
     getDarkMode: function(){
       const storedDarkMode = JSON.parse(localStorage.getItem(localStorageDarkMode));
@@ -259,7 +259,7 @@ const UICtrl = (function(){
   
   return {
     showAlert: function(type, message){
-      let {status} = wordCtrl.getBoard();
+      let {status, solution} = wordCtrl.getBoard();
       type = "dark";
       this.clearAlert();
       const wrapper = document.createElement('div');
@@ -278,14 +278,14 @@ const UICtrl = (function(){
         setTimeout(this.clearAlert, 2000);
       } 
 
-      if(status === "game over"){
+      if(status === "game over" && message !== solution){
         setTimeout(() =>{
           const alert = bootstrap.Alert.getOrCreateInstance('#re-alert');
           alert.close();
           document.querySelector(UISelectors.results).classList.add('fadeOut');
         }, 5800);
         setTimeout(this.clearAlert, 6000);
-      } 
+      }
     },
     clearAlert: function(){
       document.querySelector(UISelectors.results).innerHTML = '';
@@ -319,6 +319,7 @@ const UICtrl = (function(){
         letter.textContent = '';
         letter.dataset.letter = '';
         letter.dataset.state = 'empty';
+        letter.className = "letter";
       });
     },
     clearKeyboard: function(){
@@ -403,7 +404,7 @@ const UICtrl = (function(){
         } else{          
           callback();
         }
-      },2800);      
+      },2700);      
     },
     correctWordAnimate: function(board){
       let letters = document.querySelectorAll(UISelectors.gridRow + `:nth-child(${board.currentRow}) .letter`);
@@ -440,6 +441,7 @@ const UICtrl = (function(){
         body.classList.remove('dark');
         document.querySelector('#instructionsModal .modal-content .btn-close').classList.remove('btn-close-white');
         document.querySelector('#dateModal .modal-content .btn-close').classList.remove('btn-close-white');
+        document.querySelector('#statsModal .modal-content .btn-close').classList.remove('btn-close-white');
 
         localStorage.setItem(localStorageDarkMode, "false");
       } else{
@@ -449,6 +451,7 @@ const UICtrl = (function(){
         body.classList.add('dark');
         document.querySelector('#instructionsModal .modal-content .btn-close').classList.add('btn-close-white');
         document.querySelector('#dateModal .modal-content .btn-close').classList.add('btn-close-white');
+        document.querySelector('#statsModal .modal-content .btn-close').classList.add('btn-close-white');
         localStorage.setItem(localStorageDarkMode, "true");
       }
     },
@@ -476,8 +479,10 @@ const UICtrl = (function(){
         sidebarFill.style.display = 'block';
       }    
     },
-    populateStats: function(){
+    populateStats: function(showGreen = false){
+      this.clearStats();
       const stats = wordCtrl.getStats();
+      let { attempts } = wordCtrl.getBoard();
 
       const highestGuess = Math.max(...Object.values(stats.guesses));
 
@@ -490,16 +495,36 @@ const UICtrl = (function(){
       const maxStreak = document.querySelectorAll(UISelectors.mainStatsModal + " .max-streak span")[0];
       maxStreak.textContent = stats.maxStreak;
 
+      const style = getComputedStyle(document.body);
+      const green = style.getPropertyValue('--green');
+      const darkestGray = style.getPropertyValue('--darkestGray');
+
       const items = Array.from(document.querySelectorAll(".guess-table > *"));
       items.forEach((item, i) => {
         item.children[1].textContent = stats.guesses[i+1];
-        
+        item.children[1].style.backgroundColor = darkestGray;
         const width = (stats.guesses[i+1] / highestGuess) * 100;
         item.children[1].style.width = width.toString() + "%";
-        if(stats.guesses[i+1] === highestGuess && highestGuess !== 0){
-          item.children[1].style.backgroundColor = "#6aaa64";
-          item.children[1].style.width = "100%";
+
+        if(i+1 === attempts.length && showGreen && stats.wonLastGame){
+          item.children[1].style.backgroundColor = green;
+          // item.children[1].style.width = "100%";
         }
+      });
+    },
+    clearStats: function(){
+      const gamesPlayed = document.querySelectorAll(UISelectors.mainStatsModal + " .games-played span")[0];
+      gamesPlayed.textContent = "";
+      const winPercentage = document.querySelectorAll(UISelectors.mainStatsModal + " .win-percentage span")[0];
+      winPercentage.textContent = "";
+      const currentStreak = document.querySelectorAll(UISelectors.mainStatsModal + " .current-streak span")[0];
+      currentStreak.textContent = "";
+      const maxStreak = document.querySelectorAll(UISelectors.mainStatsModal + " .max-streak span")[0];
+      maxStreak.textContent = "";
+
+      const items = Array.from(document.querySelectorAll(".guess-table > *"));
+      items.forEach((item, i) => {
+        item.children[1].textContent = "";
       });
     }
   }
@@ -534,6 +559,7 @@ const App = (function(wordCtrl, UICtrl){
     wordCtrl.clearStoredSolution();
     wordCtrl.getStats();
     wordCtrl.getDarkMode();    
+    UICtrl.populateStats();
   }
 
   const loadEventListeners = function(){

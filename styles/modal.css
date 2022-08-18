@@ -6,16 +6,10 @@
   font-weight:bold;
 }
 
-/* #dateModal .modal-content, */
 #instructionsModal .modal-content{
   color:var(--textColor);
   background-color: var(--bgColor);
 }
-
-/* .datepicker-picker > *{
-  background-color: var(--bgColor) !important;
-
-} */
 
 .ex-word{
   display: flex;
@@ -54,6 +48,12 @@
   border-color: var(--darkestGray);
 }
 
+/* STATS MODAL */
+
+#statsModal .modal-content{
+  background-color: var(--bgColor);
+  color: var(--textColor);
+}
 #statsModal .main-stats{
   display: flex;
   flex-wrap: nowrap;

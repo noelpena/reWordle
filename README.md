@@ -10,10 +10,11 @@ Uses:
 
 ## To-do:
 - [ ] Show user dates already played somehow?
+- [ ] Sort dates already played in list?
 - [ ] Add board to localStorage. Is this needed?
 - [ ] Update datepicker CSS to include darkmode 
 
-## Done
+## Done:
 - [x] Added status to keyboard
 - [x] Check answer list, seems inaccurate
 - [x] Check/fix double letter behavior
