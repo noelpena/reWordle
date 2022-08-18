@@ -54,7 +54,7 @@ const wordCtrl = (function(){
     },
     getSolution: function(date, callback){
       const solutionExists = localStorage.getItem(localStorageKeyName); 
-
+      
       if(solutionExists){
         callback(JSON.parse(solutionExists));
       } else {
@@ -96,9 +96,11 @@ const wordCtrl = (function(){
     addResults: function(word){      
       word = word.toLowerCase();
       let solution = board.solution.toLowerCase();
+      const todaysSolution = board.solution.toLowerCase();
       const resultsArr = [];
 
       if(word === solution){board.status = "game over"}
+      if(board.currentRow === board.attemptLimit && word !== solution){board.status = "game over"}
 
       // all results as absent
       for (let i = 0; i < word.length; i++){
@@ -127,13 +129,12 @@ const wordCtrl = (function(){
 
       board.results.push(resultsArr.map(item => item.result));
       wordCtrl.clearCurrentWord();
-      
-      // console.log(board)
-
+     
       // update stats here
-      if(word === solution){
+      if(word === todaysSolution && board.status === "game over"){
         this.updateStats(true);
-      } else {
+      }
+      if(word !== todaysSolution && board.status === "game over"){
         this.updateStats(false);
       }
 
@@ -212,6 +213,7 @@ const wordCtrl = (function(){
       stats.winPercentage = Math.round((stats.gamesWon / stats.gamesPlayed) * 100);     
 
       localStorage.setItem(localStorageStatsName, JSON.stringify(stats));
+      UICtrl.populateStats();
     },
     getDarkMode: function(){
       const storedDarkMode = JSON.parse(localStorage.getItem(localStorageDarkMode));
@@ -531,8 +533,7 @@ const App = (function(wordCtrl, UICtrl){
   const updateLocalStorage = function(){
     wordCtrl.clearStoredSolution();
     wordCtrl.getStats();
-    wordCtrl.getDarkMode();
-    UICtrl.populateStats();
+    wordCtrl.getDarkMode();    
   }
 
   const loadEventListeners = function(){
