@@ -12,7 +12,8 @@ Uses:
 - [ ] Show user dates already played somehow?
 - [ ] Sort dates already played in list?
 - [ ] Add board to localStorage. Is this needed?
-- [ ] Update datepicker CSS to include darkmode 
+- [ ] Update datepicker CSS to include darkmode
+- [ ] Update solution list [New list](https://medium.com/@owenyin/here-lies-wordle-2021-2027-full-answer-list-52017ee99e86)
 
 ## Done:
 - [x] Added status to keyboard
