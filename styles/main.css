@@ -1,207 +1,208 @@
-@import 'header.css';
-@import 'keyboard.css';
-@import 'modal.css';
-@import 'flip.css';
-@import 'bounce.css';
-@import 'sidebar.css';
+@import "header.css";
+@import "keyboard.css";
+@import "modal.css";
+@import "flip.css";
+@import "bounce.css";
+@import "sidebar.css";
 
 @font-face {
-  font-family: 'ClearSans';
-  src: url('/assets/fonts/ClearSans.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-   url('/assets/fonts/ClearSans.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
-} 
+	font-family: "ClearSans";
+	src: url("/assets/fonts/ClearSans.woff") format("woff"),
+		/* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+			url("/assets/fonts/ClearSans.ttf") format("truetype"); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
 
 @font-face {
-  font-family: 'ClearSansBold';
-  src: url('/assets/fonts/ClearSans-Bold.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-   url('/assets/fonts/ClearSans-Bold.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
-} 
-
-:root{
-  --headerHeight: 66px;
-  --green: #6aaa64;
-  --darkendGreen: #538d4e;
-  --yellow: #c9b458;
-  --darkendYellow: #b59f3b;
-  --gray: #86888a;
-  --lightGray: #d3d6da;
-  --darkGray: #939598;
-  --darkestGray: #787c7e;
-
-  --white: #fff;
-  --black: #212121;
-  --orange: #f5793a;
-  --blue: #85c0f9;
-
-  --linkColor: var(--bs-link-color);
-  --keyBgColor: #d3d6da;
-  --borderColor: #d3d6da;
-  --exBorderColor: #878a8c;
-  --bgColor: #fff;
-  --textColor: #000;
-  font-family: 'ClearSansBold', 'Helvetica Neue', Arial, sans-serif;  
-  --boardItemHeight: 66px;
-
-  --linkColor-dark: #fff;
-  --keyBgColor-dark: #818384;
-  --borderColor-dark: #3A3A3C;
-  --darkestGray-dark: #3A3A3C;
-  --bgColor-dark: #121213;
-  --textColor-dark: #fff;
+	font-family: "ClearSansBold";
+	src: url("/assets/fonts/ClearSans-Bold.woff") format("woff"),
+		/* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+			url("/assets/fonts/ClearSans-Bold.ttf") format("truetype"); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
 
-@media (max-width:768px){
-  :root{
-    --headerHeight: 40px;
-  }
+:root {
+	--headerHeight: 66px;
+	--green: #6aaa64;
+	--darkendGreen: #538d4e;
+	--yellow: #c9b458;
+	--darkendYellow: #b59f3b;
+	--gray: #86888a;
+	--lightGray: #d3d6da;
+	--darkGray: #939598;
+	--darkestGray: #787c7e;
+
+	--white: #fff;
+	--black: #212121;
+	--orange: #f5793a;
+	--blue: #85c0f9;
+
+	--linkColor: var(--bs-link-color);
+	--keyBgColor: #d3d6da;
+	--borderColor: #d3d6da;
+	--exBorderColor: #878a8c;
+	--bgColor: #fff;
+	--textColor: #000;
+	font-family: "ClearSansBold", "Helvetica Neue", Arial, sans-serif;
+	--boardItemHeight: 66px;
+
+	--linkColor-dark: #fff;
+	--keyBgColor-dark: #818384;
+	--borderColor-dark: #3a3a3c;
+	--darkestGray-dark: #3a3a3c;
+	--bgColor-dark: #121213;
+	--textColor-dark: #fff;
 }
 
-@media (prefers-color-scheme: dark){
+@media (max-width: 768px) {
+	:root {
+		--headerHeight: 40px;
+	}
 }
 
-.dark{
-  --linkColor: var(--linkColor-dark);
-  --bgColor: var(--bgColor-dark);
-  --textColor: var(--textColor-dark);
-  --darkestGray: var(--darkestGray-dark);
-  --borderColor:var(--borderColor-dark);
-  --keyBgColor: var(--keyBgColor-dark);
-  --exBorderColor: var(--borderColor);
+@media (prefers-color-scheme: dark) {
 }
 
-body{
-  display: flex;
-  flex-direction: column;
-  /* justify-content: space-between; */
-  max-height: 100vh;
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
-  margin: 0;
-  padding: 0;
-  background-color: var(--bgColor);
+.dark {
+	--linkColor: var(--linkColor-dark);
+	--bgColor: var(--bgColor-dark);
+	--textColor: var(--textColor-dark);
+	--darkestGray: var(--darkestGray-dark);
+	--borderColor: var(--borderColor-dark);
+	--keyBgColor: var(--keyBgColor-dark);
+	--exBorderColor: var(--borderColor);
 }
 
-
-main{
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-grow:1
+body {
+	display: flex;
+	flex-direction: column;
+	/* justify-content: space-between; */
+	height: 100vh;
+	height: calc(var(--vh, 1vh) * 100);
+	height: 100svh;
+	margin: 0;
+	padding: 0;
+	background-color: var(--bgColor);
 }
 
-#results{
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, 0%);
-  z-index: 2;
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-grow: 1;
 }
 
-.correct{
-  color: var(--darkendGreen);
+#results {
+	top: 10%;
+	left: 50%;
+	transform: translate(-50%, 0%);
+	z-index: 2;
 }
 
-.present{
-  color: var(--darkendYellow);
+.correct {
+	color: var(--darkendGreen);
 }
 
-.absent{
-  color: var(--darkestGray);
+.present {
+	color: var(--darkendYellow);
 }
 
-#output ul li{
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 20px;
+.absent {
+	color: var(--darkestGray);
 }
 
-#board{
-  display:grid;  
-  grid-gap: 5px;
+#output ul li {
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 20px;
+}
+
+#board {
+	display: grid;
+	grid-gap: 5px;
 }
 
 #board .grid-row {
-  display:grid;
-  grid-template-columns: repeat(5, var(--boardItemHeight));
-  grid-gap: 5px;
+	display: grid;
+	grid-template-columns: repeat(5, var(--boardItemHeight));
+	grid-gap: 5px;
 }
-#board .grid-row .letter[data-state='filled']{
-  animation-name: showLetter;
-  animation-duration: 100ms;
-  animation-fill-mode: forwards;
-  color: var(--textColor)
-}
-
-#board .grid-row .letter[data-state='correct']{
-  color: #fff;
-  background-color: var(--darkendGreen);
-  border-color: var(--darkendGreen);
-  /* animation-name: showLetter;
-  animation-duration: 100ms;
-  animation-fill-mode: forwards; */
+#board .grid-row .letter[data-state="filled"] {
+	animation-name: showLetter;
+	animation-duration: 100ms;
+	animation-fill-mode: forwards;
+	color: var(--textColor);
 }
 
-#board .grid-row .letter[data-state='present']{
-  color: #fff;
-  background-color: var(--darkendYellow);
-  border-color: var(--darkendYellow);
-  /* animation-name: showLetter;
+#board .grid-row .letter[data-state="correct"] {
+	color: #fff;
+	background-color: var(--darkendGreen);
+	border-color: var(--darkendGreen);
+	/* animation-name: showLetter;
   animation-duration: 100ms;
   animation-fill-mode: forwards; */
 }
 
-#board .grid-row .letter[data-state='absent']{
-  color: #fff;
-  background-color: var(--darkestGray);
-  border-color: var(--darkestGray);
-  /* animation-name: showLetter;
+#board .grid-row .letter[data-state="present"] {
+	color: #fff;
+	background-color: var(--darkendYellow);
+	border-color: var(--darkendYellow);
+	/* animation-name: showLetter;
   animation-duration: 100ms;
   animation-fill-mode: forwards; */
 }
-#board .grid-row .letter{
-  border: 3px var(--borderColor) solid;
-  width:auto;
-  height: var(--boardItemHeight);
-  text-transform: uppercase;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 32px;
 
-  /* animation-name: showLetter;
+#board .grid-row .letter[data-state="absent"] {
+	color: #fff;
+	background-color: var(--darkestGray);
+	border-color: var(--darkestGray);
+	/* animation-name: showLetter;
+  animation-duration: 100ms;
+  animation-fill-mode: forwards; */
+}
+#board .grid-row .letter {
+	border: 3px var(--borderColor) solid;
+	width: auto;
+	height: var(--boardItemHeight);
+	text-transform: uppercase;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	font-size: 32px;
+
+	/* animation-name: showLetter;
   animation-duration: 200ms;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards; */
 }
 
 @keyframes showLetter {
-  0% {
-    transform: scale(1);
-    border-color: var(--lightGray);
-  }
-  
-  80% {
-    transform: scale(1.05);
-    border-color: var(--gray);
-  }
-  
-  100% {
-    transform: scale(1);
-    border-color: var(--darkGray);
-  }
+	0% {
+		transform: scale(1);
+		border-color: var(--lightGray);
+	}
+
+	80% {
+		transform: scale(1.05);
+		border-color: var(--gray);
+	}
+
+	100% {
+		transform: scale(1);
+		border-color: var(--darkGray);
+	}
 }
 
-@media (max-width:768px){    
-  #board .grid-row .letter{
-    height:58px;
-  }
-  #board .grid-row {
-    grid-template-columns: repeat(5, 58px);
-  }
+@media (max-width: 768px) {
+	#board .grid-row .letter {
+		height: 58px;
+	}
+	#board .grid-row {
+		grid-template-columns: repeat(5, 58px);
+	}
 }
 
-.fadeOut{
-  animation: fadeOut;
-  animation-duration: 200ms;
+.fadeOut {
+	animation: fadeOut;
+	animation-duration: 200ms;
 }
