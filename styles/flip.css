@@ -1,27 +1,33 @@
 @-webkit-keyframes flip {
-  0% {
-    transform: rotateX(0deg);
-  }
+	0% {
+		transform: rotateX(0deg);
+		animation-timing-function: ease-in;
+	}
 
-  50%  {
-    transform: rotateX(180deg);
-  }
+	50% {
+		transform: rotateX(180deg);
+		animation-timing-function: linear;
+	}
 
-  100%  {
-    transform: rotateX(0deg);
-  }  
+	100% {
+		transform: rotateX(0deg);
+		animation-timing-function: ease-out;
+	}
 }
 
 @keyframes flip {
-  0% {
-    transform: rotateX(0deg);
-  }
+	0% {
+		transform: rotateX(0deg);
+		animation-timing-function: ease-in;
+	}
 
-  50%  {
-    transform: rotateX(90deg);
-  }
+	50% {
+		transform: rotateX(90deg);
+		animation-timing-function: linear;
+	}
 
-  100%  {
-    transform: rotateX(0deg);
-  }
+	100% {
+		transform: rotateX(0deg);
+		animation-timing-function: ease-out;
+	}
 }

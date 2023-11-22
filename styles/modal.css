@@ -1,97 +1,114 @@
-#instructionsModal{
-  border-radius: 8px;
-}
-#instructionsModal a{
-  color: var(--linkColor);
-  font-weight:bold;
+@import url("https://fonts.googleapis.com/css2?family=Bitter:wght@400;800;900&display=swap");
+
+:root {
+	--headingFont: "Bitter", serif;
 }
 
-#instructionsModal .modal-content{
-  color:var(--textColor);
-  background-color: var(--bgColor);
+#instructionsModal {
+	border-radius: 8px;
+}
+#instructionsModal a {
+	color: var(--linkColor);
+	font-weight: bold;
 }
 
-.ex-word{
-  display: flex;
-  padding-bottom:10px;
+#instructionsModal .modal-content {
+	color: var(--textColor);
+	background-color: var(--bgColor);
 }
 
-.ex-word .letter:last-of-type{
-  margin-right:0px;
+#instructionsModal h3,
+#instructionsModal h4,
+#instructionsModal h5 {
+	font-family: var(--headingFont);
+	font-weight: 800;
+}
+#instructionsModal h4 {
+	font-weight: 300;
+	font-size: 20px;
 }
 
-.ex-word .letter{
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  font-size: 28px;
-  font-weight: 700;
-  border: 1px solid var(--exBorderColor);
-  margin-right: 4px;
+.ex-word {
+	display: flex;
+	padding-bottom: 10px;
 }
 
-.ex-word .letter[data-state='correct']{
-  color: #fff;
-  background-color: var(--darkendGreen);
-  border-color: var(--darkendGreen);
+.ex-word .letter:last-of-type {
+	margin-right: 0px;
 }
-.ex-word .letter[data-state='present']{
-  color: #fff;
-  background-color: var(--darkendYellow);
-  border-color: var(--darkendYellow);
+
+.ex-word .letter {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	width: 40px;
+	height: 40px;
+	font-size: 28px;
+	font-weight: 700;
+	border: 1px solid var(--exBorderColor);
+	margin-right: 4px;
 }
-.ex-word .letter[data-state='absent']{
-  color: #fff;
-  background-color: var(--darkestGray);
-  border-color: var(--darkestGray);
+
+.ex-word .letter[data-state="correct"] {
+	color: #fff;
+	background-color: var(--darkendGreen);
+	border-color: var(--darkendGreen);
+}
+.ex-word .letter[data-state="present"] {
+	color: #fff;
+	background-color: var(--darkendYellow);
+	border-color: var(--darkendYellow);
+}
+.ex-word .letter[data-state="absent"] {
+	color: #fff;
+	background-color: var(--darkestGray);
+	border-color: var(--darkestGray);
 }
 
 /* STATS MODAL */
 
-#statsModal .modal-content{
-  background-color: var(--bgColor);
-  color: var(--textColor);
+#statsModal .modal-content {
+	background-color: var(--bgColor);
+	color: var(--textColor);
 }
-#statsModal .main-stats{
-  display: flex;
-  flex-wrap: nowrap;
-  column-gap: 30px;
-  align-items: flex-start;
-  justify-content: center;
-  margin-bottom:25px;
+#statsModal .main-stats {
+	display: flex;
+	flex-wrap: nowrap;
+	column-gap: 30px;
+	align-items: flex-start;
+	justify-content: center;
+	margin-bottom: 25px;
 }
 
 #statsModal .main-stats > * {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
 }
 
-#statsModal .main-stats > * small{
-  font-size:12px;
+#statsModal .main-stats > * small {
+	font-size: 12px;
 }
 
-#statsModal .guess-table{
-  width: 80%;
+#statsModal .guess-table {
+	width: 80%;
 }
 
-#statsModal .guess-table .bar-fill{
-  content: attr(data-num-attempts);
-  background-color: var(--darkestGray);
-  color: #fff;
-  min-width: 7%;
-  height: 18px;
-  margin: 0px;
-  padding: 0px;
-  margin-left: 8px;
-  justify-content: flex-end;
-  padding-right: 8px;
+#statsModal .guess-table .bar-fill {
+	content: attr(data-num-attempts);
+	background-color: var(--darkestGray);
+	color: #fff;
+	min-width: 7%;
+	height: 18px;
+	margin: 0px;
+	padding: 0px;
+	margin-left: 8px;
+	justify-content: flex-end;
+	padding-right: 8px;
 }
 
-@media (max-width: 768px){
-  #statsModal .guess-table{
-    width: 100%;
-  }
+@media (max-width: 768px) {
+	#statsModal .guess-table {
+		width: 100%;
+	}
 }
