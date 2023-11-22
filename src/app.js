@@ -58,10 +58,9 @@ const wordCtrl = (function () {
 			if (solutionExists) {
 				callback(JSON.parse(solutionExists));
 			} else {
-				console.log("date", date);
 				http.getSolution(date)
 					.then((data) => {
-						board.solution = data.solution.toLowerCase();
+						board.solution = data.word.toLowerCase();
 						localStorage.setItem(
 							localStorageKeyName,
 							JSON.stringify(data)
