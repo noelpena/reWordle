@@ -13,20 +13,17 @@ class wordsAPI {
 	}
 
 	async getSolution(date) {
-		const response = await fetch(
-			`https://api-rewordle.noelpena.com/api/wordle`,
-			{
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ date }),
-			}
-		);
+		const response = await fetch(`https://api.noelpena.com/api/wordle`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ date }),
+		});
 
 		// const response = await fetch(`../api/solutions.json`);
 		const { data, error } = await response.json();
 
 		if (!error) {
-			console.log("test", data);
+			// console.log("test", data);
 			return data;
 		}
 	}

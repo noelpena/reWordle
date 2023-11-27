@@ -859,6 +859,11 @@ const App = (function (wordCtrl, UICtrl) {
 		});
 	};
 
+	const todaysSolution = function () {
+		const date = UICtrl.getDateInput();
+		wordCtrl.getSolution(date, () => {});
+	};
+
 	return {
 		init: function () {
 			// console.log("Initializing App...");
@@ -866,6 +871,7 @@ const App = (function (wordCtrl, UICtrl) {
 			updateLocalStorage();
 			loadEventListeners();
 			todaysDateInput();
+			todaysSolution();
 		},
 	};
 })(wordCtrl, UICtrl);
