@@ -13,13 +13,10 @@ class wordsAPI {
 	}
 
 	async getSolution(date) {
-		const response = await fetch(`https://api.noelpena.com/api/wordle`, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ date }),
-		});
+		const response = await fetch(
+			`https://www.noelpena.com/api/wordle/${date}`
+		);
 
-		// const response = await fetch(`../api/solutions.json`);
 		const { data, error } = await response.json();
 
 		if (!error) {
