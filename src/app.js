@@ -686,7 +686,7 @@ const App = (function (wordCtrl, UICtrl) {
 			.addEventListener("click", keyboardClick);
 
 		document
-			.getElementById("dark-mode")
+			.querySelector("#sidebar-inner #dark-mode")
 			.addEventListener("click", UICtrl.toggleDarkMode);
 		document
 			.getElementById("hamburger-menu")
